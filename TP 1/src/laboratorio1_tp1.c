@@ -128,9 +128,7 @@ int main(void) {
 
 				else {
 
-					printf(
-							"El factorial de %d es: No se puede realizar factorial de negativos \n",
-							num1);
+					printf("El factorial de %d es: No se puede realizar factorial de negativos \n", num1);
 
 				}
 
@@ -145,9 +143,7 @@ int main(void) {
 			}
 
 			else {
-
 				printf("Aún no se realizaron operaciones \n");
-
 			}
 
 			break;
