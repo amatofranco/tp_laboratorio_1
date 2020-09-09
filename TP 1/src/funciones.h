@@ -1,7 +1,6 @@
 #ifndef FUNCIONES_H_
 #define FUNCIONES_H_
 
-#endif /* FUNCIONES_H_ */
 
 /**
  * Toma un número entero mediante scan y lo informa por print
@@ -53,5 +52,7 @@ float dividir(int num1, int num2);
  * @return Factorial obtenido
  */
 
-int factorial(int num1);
+int factorial(int num);
+
+#endif /* FUNCIONES_H_ */
 
