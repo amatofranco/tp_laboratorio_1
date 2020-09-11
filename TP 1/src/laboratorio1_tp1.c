@@ -55,6 +55,7 @@ int main(void) {
 
 	do {
 
+
 		printf("Ingrese el número correspondiente a la opción: \n 1 Ingresar 1er Operando ");
 
 		if (flagNum1 == 1) {
@@ -71,11 +72,11 @@ int main(void) {
 
 		fpurge(stdin);
 		scanf("%d", &opcion);
+		system("clear");
 
 		switch (opcion) {
 
 		case 1:
-
 			printf("Ingrese el 1er Operando: ");
 			num1 = getNum();
 			flagNum1 = 1;
@@ -107,7 +108,7 @@ int main(void) {
 
 		case 4:
 
-			if (flagOperacion == 1) {
+				if (flagOperacion == 1) {
 
 				printf("El resultado de %d + %d es: %d \n", num1, num2, suma);
 				printf("El resultado de %d - %d es: %d \n", num1, num2, resta);
