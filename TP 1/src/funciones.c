@@ -4,6 +4,7 @@
 int getNum(void){
 
 	int num;
+	fpurge(stdin);
 	scanf("%d", &num);
 	printf("Se ingresó el numero: %d \n",num);
 	return num;
