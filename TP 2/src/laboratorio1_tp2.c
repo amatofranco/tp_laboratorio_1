@@ -32,14 +32,10 @@ int main(void) {
 
 			case 1:
 
-				nombre = utn_getNombre();
-				apellido = utn_getNombre();
-				//id = getID//
-				sueldo = utn_getFloat();
-				sector = utn_getString();
+				utn_getNombre();
 
 
-			    addEmployee(arrayEmpleados, QTY_EMPLEADOS, id, nombre, apellido, sueldo, sector);
+			   // addEmployee(arrayEmpleados, QTY_EMPLEADOS, id, nombre, apellido, sueldo, sector);
 
 
 
