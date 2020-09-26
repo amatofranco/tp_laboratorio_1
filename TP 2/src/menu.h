@@ -1,13 +1,10 @@
+
 /*
- * utn_menu.h
- *
- *  Created on: 26 sep. 2020
- *      Author: administrador
- */
+#ifndef MENU_H_
+#define MENU_H_
 
-#ifndef UTN_MENU_H_
-#define UTN_MENU_H_
+int menu(void);
 
 
 
-#endif /* UTN_MENU_H_ */
+#endif /* MENU_H_ */
