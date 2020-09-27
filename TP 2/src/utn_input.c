@@ -10,32 +10,44 @@
  */
 static int getString(char *string, int lenght);
 
-
 /**
  * Verifica si la cadena esta formada solo por numeros enteros
- * @param pResultado
- * @return 0 operacion exitosa -1 error
+ * @param puntero a cadena
+ * @return 0 FALSO 1 VERDADERO
  */
-static int esNumerica(char *cadena, int lenght);
-
+static int esNumerica(char *cadena);
 
 /**
  * Toma solo numeros enteros
- * @param cadena La cadena ingresada
+ * @param puntero a numero
+ * @return 0 operacion exitosa -1 error
+ */
+
+static int getInt(int *pResultado);
+
+/**
+ * Verifica si la cadena esta formada por caracteres y solo la primer letra mayuscula
+ * @param puntero a cadena
  * @return 0 FALSO 1 VERDADERO
  */
 
+static int esNombre(char *cadena);
 
-static int getInt(int *pResultado, int lenght);
+static int esFlotante(char *cadena);
+
+/**
+ * Toma solo caracteres y primer letra mayuscula
+ * @param puntero a cadena
+ * @return 0 operacion exitosa -1 error
+ */
+
+static int getNombre(char *pResultado);
 
 
-static int esNombre(char *pResultado, int lenght);
 
-
-static int getNombre(char *pResultado, int lenght);
+static int getFloat(float *pResultado);
 
 /////////////////
-
 
 
 static int getString(char *string, int lenght) {
@@ -60,13 +72,11 @@ static int getString(char *string, int lenght) {
 
 }
 
-
-
-static int esNumerica(char *cadena, int lenght) {
+static int esNumerica(char *cadena) {
 
 	int ret = 1;
 
-	if (cadena != NULL && lenght > 0) {
+	if (cadena != NULL) {
 
 		for (int i = 0; cadena[i] != '\0'; i++) {
 
@@ -82,15 +92,20 @@ static int esNumerica(char *cadena, int lenght) {
 
 }
 
-static int esNombre(char *cadena, int lenght) {
+static int esFlotante(char *cadena) {
 
 	int ret = 1;
 
-	if (cadena != NULL && lenght > 0) {
+	if (cadena != NULL) {
 
 		for (int i = 0; cadena[i] != '\0'; i++) {
 
-			if (cadena[i] < '97' || cadena[i] > '122' ) {
+			if (i!=0 && cadena[i] == '.'){
+
+				continue;
+			}
+
+			if (cadena[i] > '9' || cadena[i] < '0') {
 
 				ret = 0;
 				break;
@@ -102,18 +117,44 @@ static int esNombre(char *cadena, int lenght) {
 
 }
 
-static int getNombre(char *pResultado, int lenght) {
 
-	char buffer[4096];
+static int esNombre(char *cadena) {
+
+	int ret = 1;
+
+	if (cadena != NULL) {
+
+		for (int i = 0; cadena[i] != '\0'; i++) {
+
+			if (i==0 && (cadena[i] >= 'A' || cadena[i] <= 'Z')) {
+
+				continue;
+			}
+
+			if (cadena[i] < 'a' || cadena[i] > 'z') {
+
+				ret = 0;
+				break;
+			}
+		}
+	}
+
+	return ret;
+
+}
+
+static int getNombre(char *pResultado) {
+
 	int ret = -1;
+
+	char buffer[51];
+
 
 	if (pResultado != NULL) {
 
-		if (getString(buffer, sizeof(buffer)) == 0
-				&& esNombre(buffer, sizeof(buffer))
-				&& strnlen(buffer, sizeof(buffer)) < lenght) {
+		if (getString(buffer, sizeof(buffer)) == 0 && esNombre(buffer)){
 
-			strncpy(pResultado, buffer, lenght);
+			strncpy(pResultado, buffer, sizeof(buffer));
 			ret = 0;
 		}
 
@@ -121,95 +162,147 @@ static int getNombre(char *pResultado, int lenght) {
 	return ret;
 }
 
-
-
-static int getInt(int *pResultado, int lenght) {
+static int getInt(int *pResultado) {
 
 	int ret = -1;
 	char buffer[4096];
 
-	if (pResultado != NULL && lenght>0) {
+	if (pResultado != NULL && getString(buffer, sizeof(buffer)) == 0 && esNumerica(buffer)) {
 
-		if (getInt(buffer, sizeof(buffer)) == 0 && esEsnumerica(buffer, sizeof(buffer) {
+					*pResultado = atoi(buffer);
+					ret = 0;
+				}
 
-		*pResultado = atoi(buffer);
-		ret = 0;
-	}
-}
 
-return ret;
-}
-
-int utn_getNumero(int *pResultado, char *mensaje, char *mensajeError,
-	int minimo, int maximo, int reintentos) {
-
-int retorno = -1;
-int buffer;
-
-if (pResultado != NULL && mensaje != NULL && mensajeError != NULL
-		&& minimo <= maximo && reintentos >= 0) {
-
-	while (reintentos > 0) {
-
-		printf("%s", mensaje);
-
-		// scanf("%d", &buffer);
-
-		if (getInt(&buffer,sizeof(buffer)) == 0 && buffer >= minimo && buffer <= maximo) {
-
-			*pResultado = buffer;
-			retorno = 0;
-			break;
-		}
-
-		else {
-			printf("%s", mensajeError);
-			reintentos--;
-		}
+			return ret;
 
 	}
 
-	if (reintentos == 0) {
-		retorno = -1;
+static int getFloat(float *pResultado) {
+
+	int ret = -1;
+	char buffer[4096];
+
+	if (pResultado != NULL && getString(buffer, sizeof(buffer)) == 0 && esFlotante(buffer)) {
+
+					*pResultado = atof(buffer);
+					ret = 0;
+				}
+
+
+			return ret;
+
 	}
 
-}
+	int utn_getNumero(int *pResultado, char *mensaje, char *mensajeError,
+			int minimo, int maximo, int reintentos) {
 
-return retorno;
-}
+		int retorno = -1;
+		int buffer;
 
-int utn_getNombre(int *pResultado, char *mensaje, char *mensajeError, int maximo, int reintentos) {
-	int retorno = -1;
-	int buffer;
+		if (pResultado != NULL && mensaje != NULL && mensajeError != NULL
+				&& minimo <= maximo && reintentos >= 0) {
 
-	if (pResultado != NULL && mensaje != NULL && mensajeError != NULL && reintentos >= 0) {
+			while (reintentos > 0) {
 
-		while (reintentos > 0) {
+				printf("%s", mensaje);
 
-			printf("%s", mensaje);
+				// scanf("%d", &buffer);
 
-			// scanf("%d", &buffer);
+				if (getInt(&buffer) == 0 && buffer >= minimo
+						&& buffer <= maximo) {
 
-			if (getNombre(&buffer, sizeof(buffer)) == 0 && buffer <= maximo) {
+					*pResultado = buffer;
+					retorno = 0;
+					break;
+				}
 
-				*pResultado = buffer;
-				retorno = 0;
-				break;
+				else {
+					printf("%s", mensajeError);
+					reintentos--;
+				}
+
 			}
 
-			else {
-				printf("%s", mensajeError);
-				reintentos--;
+			if (reintentos == 0) {
+				retorno = -1;
 			}
 
 		}
 
-		if (reintentos == 0) {
-			retorno = -1;
-		}
+		return retorno;
 	}
 
-	return retorno;
-}
+	int utn_getNombre(int *pResultado, char *mensaje, char *mensajeError,
+			int maximo, int reintentos) {
+		int retorno = -1;
+		char buffer;
+
+		if (pResultado != NULL && mensaje != NULL && mensajeError != NULL
+				&& reintentos >= 0) {
+
+			while (reintentos > 0) {
+
+				printf("%s", mensaje);
+
+				// scanf("%d", &buffer);
+
+				if (getNombre(&buffer) == 0 && buffer <= maximo) {
+
+					*pResultado = buffer;
+					retorno = 0;
+					break;
+				}
+
+				else {
+					printf("%s", mensajeError);
+					reintentos--;
+				}
+
+			}
+
+			if (reintentos == 0) {
+				retorno = -1;
+			}
+		}
+
+		return retorno;
+	}
+
+	int utn_getFloat(float *pResultado, char *mensaje, char *mensajeError,
+				int maximo, int reintentos) {
+			int retorno = -1;
+			float buffer;
+
+			if (pResultado != NULL && mensaje != NULL && mensajeError != NULL
+					&& reintentos >= 0) {
+
+				while (reintentos > 0) {
+
+					printf("%s", mensaje);
+
+					// scanf("%d", &buffer);
+
+					if (getFloat(&buffer) == 0) {
+
+						*pResultado = buffer;
+						retorno = 0;
+						break;
+					}
+
+					else {
+						printf("%s", mensajeError);
+						reintentos--;
+					}
+
+				}
+
+				if (reintentos == 0) {
+					retorno = -1;
+				}
+			}
+
+			return retorno;
+		}
 
 

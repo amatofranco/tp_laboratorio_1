@@ -15,5 +15,10 @@
  */
 int utn_getNumero(int *pResultado, char *mensaje, char *mensajeError, int minimo, int maximo, int reintentos);
 
+int utn_getNombre(int *pResultado, char *mensaje, char *mensajeError,int maximo, int reintentos);
+
+
+int utn_getFloat(float *pResultado, char *mensaje, char *mensajeError,
+				int maximo, int reintentos);
 
 #endif /* UTN_INPUT_H_ */

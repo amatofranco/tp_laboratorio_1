@@ -28,12 +28,14 @@ int main(void) {
 		if (respuesta == 0) {
 
 
-			switch (respuesta) {
+			switch (opcion) {
 
 			case 1:
 
-				utn_getNombre();
-
+				// utn_getNombre(nombre, "Ingrese nombre \n", "Error, intente nuevamente \n", 51, 2);
+				// utn_getNombre(apellido, "Ingrese apellido \n", "Error, intente nuevamente \n", 51, 2);
+				utn_getFloat(&sueldo, "Ingrese sueldo \n", "Error, intente nuevamente \n", 51, 2);
+				utn_getNombre(sector, "Ingrese sector \n", "Error, intente nuevamente \n", 51, 2);
 
 			   // addEmployee(arrayEmpleados, QTY_EMPLEADOS, id, nombre, apellido, sueldo, sector);
 
