@@ -88,5 +88,17 @@ int sortEmployees(Employee* list, int len, int order);
 */
 int printEmployees(Employee* list, int length);
 
+int printEmployeeByIndex(Employee *list, int len, int i);
+
+/**
+ * Verifica si el array de empleados en su totalidad está vacio
+ * @param list Puntero a array de empleados
+ * @param len longitud del array
+ * @return 1 VERDADERO 0 FALSO
+ */
+int isEmpty(Employee *list, int len);
+
+
+
 #endif /* ARRAYEMPLOYEES_H_ */
 
