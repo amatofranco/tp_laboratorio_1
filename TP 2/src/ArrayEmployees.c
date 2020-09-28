@@ -58,6 +58,7 @@ int findEmployeeById(Employee *list, int len, int id) {
 			if (list[i].id == id && list[i].isEmpty == 0) {
 
 				ret = i;
+				break;
 
 			}
 
@@ -68,7 +69,20 @@ int findEmployeeById(Employee *list, int len, int id) {
 }
 
 int removeEmployee(Employee *list, int len, int id) {
-	return -1;
+	int ret = -1;
+	if (list != NULL && len > 0 && id > 0) {
+
+		for (int i = 0; i < len; i++) {
+
+			if (id == list[i].id) {
+				list[i].isEmpty = 1;
+			}
+		}
+		ret = 0;
+	}
+
+	return ret;
+
 }
 
 int sortEmployees(Employee *list, int len, int order) {

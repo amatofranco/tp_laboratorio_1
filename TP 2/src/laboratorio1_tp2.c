@@ -4,7 +4,6 @@
 #include "ArrayEmployees.h"
 #include "utn_inputs.h"
 
-
 #define QTY_EMPLEADOS 1000
 #define QTY_SECTORES 50
 #define MIN_SUELDO 20000;
@@ -156,10 +155,31 @@ int main(void) {
 					printEmployeeByIndex(arrayEmpleados, QTY_EMPLEADOS, index);
 				}
 				break;
+
 			case 3:
 				if (isEmpty(arrayEmpleados, QTY_EMPLEADOS)) {
 					printf("%s", mensajeEmpty);
 				} else {
+					utn_getNumero(&findId,
+							"Ingrese el Id del empleado a buscar \n",
+							"Número inválido \n", 1, QTY_EMPLEADOS, 2);
+
+					index = findEmployeeById(arrayEmpleados, QTY_EMPLEADOS,
+							findId);
+
+					if (index == -1) {
+
+						printf("No existe empleado con el ID seleccionado \n");
+						break;
+					}
+
+					else{
+						printEmployeeByIndex(arrayEmpleados, QTY_EMPLEADOS, index);
+						removeEmployee(arrayEmpleados,QTY_EMPLEADOS,findId);
+						printf("%s",mensajeExito);
+
+
+					}
 
 
 

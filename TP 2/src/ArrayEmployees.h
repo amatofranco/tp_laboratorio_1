@@ -13,7 +13,6 @@ int isEmpty;
 } typedef Employee;
 
 
-int iniciarEmpleados(void);
 
 
 /** \brief Para indicar que todas las posiciones del array están vacías, esta función pone la bandera
