@@ -173,15 +173,19 @@ int main(void) {
 						break;
 					}
 
-					else{
-						printEmployeeByIndex(arrayEmpleados, QTY_EMPLEADOS, index);
-						removeEmployee(arrayEmpleados,QTY_EMPLEADOS,findId);
-						printf("%s",mensajeExito);
+					else {printEmployeeByIndex(arrayEmpleados, QTY_EMPLEADOS,index);
 
+					utn_getNumero(&opcion, "Seleccione: 1 para borrar - 2 para cancelar operación \n","Opción inválida \n",1,2,2);
+
+						if (opcion == 1) {
+							removeEmployee(arrayEmpleados, QTY_EMPLEADOS,
+									findId);
+							printf("%s", mensajeExito);
+						} else {
+							printf("Se canceló la operación \n");
+						}
 
 					}
-
-
 
 				}
 
@@ -206,16 +210,5 @@ int main(void) {
 
 	return EXIT_SUCCESS;
 
-}
-
-int altaEmpleado(void) {
-
-	/*
-	 nombre = utn_getNombre;
-	 apellido = utn_getApellido;
-	 salario = utn_getFloat;
-	 sector = utn_getString;
-	 */
-	return 0;
 }
 
