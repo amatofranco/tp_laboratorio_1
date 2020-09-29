@@ -18,7 +18,6 @@ int main(void) {
 	;
 	float maxSalary = MAX_SALARY
 	;
-	int maxSectors = QTY_SECTORS;
 	int opcion;
 	int respuesta;
 	char name[MAX_NAME];
@@ -48,11 +47,12 @@ int main(void) {
 			case 1:
 
 				if (utn_getNombre(name, "Ingrese nombre \n",
-						"Nombre inválido \n", 2) != 0) {
+						"Nombre inválido \n", 2)!=0){
 
 					printf("%s", mensajeError);
 					break;
 				}
+
 
 				if (utn_getNombre(lastName, "Ingrese apellido \n",
 						"Apellido inválido \n", 2) != 0) {
@@ -69,7 +69,7 @@ int main(void) {
 
 				if (utn_getNumero(&sector,
 						"Ingrese número correspondiente al sector \n",
-						"Número inválido \n", 1, maxSectors, 2) != 0) {
+						"Número inválido \n", 1, QTY_SECTORS, 2) != 0) {
 
 					printf("%s", mensajeError);
 					break;
@@ -98,16 +98,17 @@ int main(void) {
 							"Ingrese el Id del empleado a buscar \n",
 							"Número inválido \n", 1, QTY_EMPLOYEES, 2);
 
+
+
 					index = findEmployeeById(arrayEmployees, QTY_EMPLOYEES,
 							findId);
+
 
 					if (index == -1) {
 
 						printf("No existe empleado con el ID seleccionado \n");
 						break;
 					}
-
-					printEmployeeByIndex(arrayEmployees, QTY_EMPLOYEES, index);
 
 					utn_getNumero(&opcion,
 							"Ingrese el número correspondiente a la opción: \n 1-Modificar NOMBRE \n 2-Modificar APELLIDO \n 3-Modificar SUELDO \n 4 Modificar SECTOR \n",
@@ -122,6 +123,8 @@ int main(void) {
 
 						strncpy(arrayEmployees[index].name, name,
 								sizeof(name));
+						printf("%s", mensajeExito);
+
 
 						break;
 					case 2:
@@ -131,6 +134,8 @@ int main(void) {
 
 						strncpy(arrayEmployees[index].lastName, lastName,
 								sizeof(lastName));
+						printf("%s", mensajeExito);
+
 
 						break;
 					case 3:
@@ -140,19 +145,21 @@ int main(void) {
 								2);
 
 						arrayEmployees[index].salary = salary;
+						printf("%s", mensajeExito);
+
 						break;
 					case 4:
 
 						utn_getNumero(&sector,
 								"Ingrese el nuevo número correspondiente a sector \n ",
-								"Número inválido \n", 1, maxSectors, 2);
+								"Número inválido \n", 1, QTY_SECTORS, 2);
 
 						arrayEmployees[index].sector = sector;
+						printf("%s", mensajeExito);
+
 						break;
 
 					}
-
-					printEmployeeByIndex(arrayEmployees, QTY_EMPLOYEES, index);
 				}
 				break;
 
@@ -173,7 +180,7 @@ int main(void) {
 						break;
 					}
 
-					else {printEmployeeByIndex(arrayEmployees, QTY_EMPLOYEES,index);
+					else {
 
 					utn_getNumero(&opcion, "Seleccione: 1 para borrar - 2 para cancelar operación \n","Opción inválida \n",1,2,2);
 
@@ -195,6 +202,8 @@ int main(void) {
 				if (isEmpty(arrayEmployees, QTY_EMPLOYEES)) {
 					printf("%s", mensajeEmpty);
 				} else {
+
+					sortEmployees(arrayEmployees,QTY_EMPLOYEES,1);
 					printEmployees(arrayEmployees, QTY_EMPLOYEES);
 				}
 				break;

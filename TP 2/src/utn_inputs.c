@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
+
 
 /**
  * Lee de stdin hasta encontrar '\n' o
@@ -364,7 +366,8 @@ int esNombre(char *cadena, int limite) {
 				continue;
 			}
 
-			if (cadena[i] == ' ' && flagEspacio == 0) {
+
+			if (i!=0 && cadena[i] == ' ' && flagEspacio == 0) {
 
 				flagEspacio = 1;
 
@@ -406,6 +409,8 @@ int getNombre(char *pResultado) {
 
 		if (myGets(buffer, sizeof(buffer)) == 0
 				&& esNombre(buffer, sizeof(buffer))) {
+
+			buffer[0] = toupper(buffer[0]);
 
 			strncpy(pResultado, buffer, sizeof(buffer));
 			ret = 0;

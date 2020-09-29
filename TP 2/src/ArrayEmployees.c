@@ -3,12 +3,15 @@
 #include <string.h>
 #include "ArrayEmployees.h"
 
+static int printEmployee(Employee *employee);
+
 int initEmployees(Employee *list, int len) {
 
 	int ret = -1;
 	if (list != NULL && len > 0) {
 		for (int i = 0; i < len; i++) {
 			list[i].isEmpty = 1;
+			list[i].id = 0;
 		}
 		ret = 0;
 	}
@@ -55,9 +58,11 @@ int findEmployeeById(Employee *list, int len, int id) {
 
 		for (int i = 0; i < len; i++) {
 
-			if (list[i].id == id && list[i].isEmpty == 0) {
+			if (list[i].id == id) {
 
 				ret = i;
+
+				printEmployee(&list[i]);
 				break;
 
 			}
@@ -86,35 +91,75 @@ int removeEmployee(Employee *list, int len, int id) {
 }
 
 int sortEmployees(Employee *list, int len, int order) {
-	return 0;
+	int ret = -1;
+	Employee buffer;
+
+	int flagSwap;
+
+	do {
+
+		flagSwap = 0;
+
+		for (int i = 0; i < len - 1; i++) {
+
+			if (order == 1) {
+
+
+				if (strncmp(list[i].lastName, list[i + 1].lastName, MAX_NAME)
+						> 0) {
+
+					flagSwap = 1;
+					buffer = list[i];
+					list[i] = list[i + 1];
+					list[i + 1] = buffer;
+				}
+
+			}
+		}
+
+		len--;
+
+	} while (flagSwap == 1);
+	return ret;
 }
+
+
 
 int printEmployees(Employee *list, int length) {
 
-	for (int i = 0; i < length && list[i].isEmpty != 1; i++) {
-
-		printEmployeeByIndex(list, length, i);
-
-	}
-
-	return 0;
-}
-
-int printEmployeeByIndex(Employee *list, int len, int i) {
-
 	int ret = -1;
 
-	if (list != NULL && len > 0 && list[i].isEmpty != 1) {
 
-		printf("Empleado id %d: %s %s, salario: %.2f, sector: %d \n",
-				list[i].id, list[i].name, list[i].lastName, list[i].salary,
-				list[i].sector);
+	if (list != NULL && length > 0) {
+
+		for (int i = 0; i < length; i++) {
+
+			if (list[i].isEmpty == 0) {
+
+				printEmployee(&list[i]);
+			}
+
+		}
 
 		ret = 0;
 	}
-
 	return ret;
+}
 
+static int printEmployee(Employee *employee) {
+
+	int ret = -1;
+
+	if (employee != NULL && employee->isEmpty==0) {
+
+		printf("Empleado id %d: %s %s, salario: %.2f, sector: %d \n",
+				employee->id, employee->lastName, employee->name,
+				employee->salary, employee->sector);
+
+		ret = 0;
+
+	}
+	return ret;
 }
 
 int isEmpty(Employee *list, int len) {

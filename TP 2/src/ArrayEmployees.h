@@ -90,7 +90,7 @@ int sortEmployees(Employee* list, int len, int order);
 */
 int printEmployees(Employee* list, int length);
 
-int printEmployeeByIndex(Employee *list, int len, int i);
+
 
 /**
  * Verifica si el array de empleados en su totalidad está vacio
