@@ -3,10 +3,13 @@
 #ifndef ARRAYEMPLOYEES_H_
 #define ARRAYEMPLOYEES_H_
 
+#define MAX_NAME 51
+#define MAX_LASTNAME 51
+
 struct {
 int id;
-char name[51];
-char lastName[51];
+char name[MAX_NAME];
+char lastName[MAX_LASTNAME];
 float salary;
 int sector;
 int isEmpty;

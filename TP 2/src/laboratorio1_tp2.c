@@ -4,34 +4,35 @@
 #include "ArrayEmployees.h"
 #include "utn_inputs.h"
 
-#define QTY_EMPLEADOS 1000
-#define QTY_SECTORES 50
-#define MIN_SUELDO 20000;
-#define MAX_SUELDO 200000;
+#define QTY_EMPLOYEES 1000
+#define QTY_SECTORS 50
+#define MIN_SALARY 20000;
+#define MAX_SALARY 200000;
+
 
 int main(void) {
 
-	Employee arrayEmpleados[QTY_EMPLEADOS];
+	Employee arrayEmployees[QTY_EMPLOYEES];
 
-	float minSueldo = MIN_SUELDO
+	float minSalary = MIN_SALARY
 	;
-	float maxSueldo = MAX_SUELDO
+	float maxSalary = MAX_SALARY
 	;
-	int maxSectores = QTY_SECTORES;
+	int maxSectors = QTY_SECTORS;
 	int opcion;
 	int respuesta;
-	char nombre[51];
-	char apellido[51];
+	char name[MAX_NAME];
+	char lastName[MAX_LASTNAME];
 	int sector;
 	int id = 1;
 	int findId;
 	int index;
-	float sueldo;
+	float salary;
 	char mensajeError[] = "Se produjo un error. Se redigirá al menú \n";
 	char mensajeExito[] = "Operación exitosa \n";
 	char mensajeEmpty[] = "No se registra la carga de ningún empleado \n";
 
-	initEmployees(arrayEmpleados, QTY_EMPLEADOS);
+	initEmployees(arrayEmployees, QTY_EMPLOYEES);
 
 	do {
 
@@ -46,22 +47,21 @@ int main(void) {
 
 			case 1:
 
-				if (utn_getNombre(nombre, "Ingrese nombre \n",
+				if (utn_getNombre(name, "Ingrese nombre \n",
 						"Nombre inválido \n", 2) != 0) {
 
 					printf("%s", mensajeError);
 					break;
 				}
 
-				if (utn_getNombre(apellido, "Ingrese apellido \n",
+				if (utn_getNombre(lastName, "Ingrese apellido \n",
 						"Apellido inválido \n", 2) != 0) {
 
 					printf("%s", mensajeError);
 					break;
 				}
 
-				if (utn_getFloat(&sueldo, "Ingrese sueldo \n",
-						"Número inválido \n", minSueldo, maxSueldo, 2) != 0) {
+				if (utn_getFloat(&salary, "Ingrese sueldo \n", "Número inválido \n", minSalary, maxSalary, 2) != 0) {
 
 					printf("%s", mensajeError);
 					break;
@@ -69,14 +69,14 @@ int main(void) {
 
 				if (utn_getNumero(&sector,
 						"Ingrese número correspondiente al sector \n",
-						"Número inválido \n", 1, maxSectores, 2) != 0) {
+						"Número inválido \n", 1, maxSectors, 2) != 0) {
 
 					printf("%s", mensajeError);
 					break;
 				}
 
-				if (addEmployee(arrayEmpleados, QTY_EMPLEADOS, id, nombre,
-						apellido, sueldo, sector) == 0) {
+				if (addEmployee(arrayEmployees, QTY_EMPLOYEES, id, name,
+						lastName, salary, sector) == 0) {
 					printf("%s", mensajeExito);
 					id++;
 				}
@@ -88,7 +88,7 @@ int main(void) {
 				break;
 			case 2:
 
-				if (isEmpty(arrayEmpleados, QTY_EMPLEADOS)) {
+				if (isEmpty(arrayEmployees, QTY_EMPLOYEES)) {
 					printf("%s", mensajeEmpty);
 				}
 
@@ -96,9 +96,9 @@ int main(void) {
 
 					utn_getNumero(&findId,
 							"Ingrese el Id del empleado a buscar \n",
-							"Número inválido \n", 1, QTY_EMPLEADOS, 2);
+							"Número inválido \n", 1, QTY_EMPLOYEES, 2);
 
-					index = findEmployeeById(arrayEmpleados, QTY_EMPLEADOS,
+					index = findEmployeeById(arrayEmployees, QTY_EMPLOYEES,
 							findId);
 
 					if (index == -1) {
@@ -107,7 +107,7 @@ int main(void) {
 						break;
 					}
 
-					printEmployeeByIndex(arrayEmpleados, QTY_EMPLEADOS, index);
+					printEmployeeByIndex(arrayEmployees, QTY_EMPLOYEES, index);
 
 					utn_getNumero(&opcion,
 							"Ingrese el número correspondiente a la opción: \n 1-Modificar NOMBRE \n 2-Modificar APELLIDO \n 3-Modificar SUELDO \n 4 Modificar SECTOR \n",
@@ -117,54 +117,54 @@ int main(void) {
 
 					case 1:
 
-						utn_getNombre(nombre, "Ingrese el nuevo nombre \n",
+						utn_getNombre(name, "Ingrese el nuevo nombre \n",
 								"Nombre Inválido \n", 2);
 
-						strncpy(arrayEmpleados[index].name, nombre,
-								sizeof(nombre));
+						strncpy(arrayEmployees[index].name, name,
+								sizeof(name));
 
 						break;
 					case 2:
 
-						utn_getNombre(apellido, "Ingrese el nuevo apellido \n",
+						utn_getNombre(lastName, "Ingrese el nuevo apellido \n",
 								"Apellido Inválido \n", 2);
 
-						strncpy(arrayEmpleados[index].lastName, apellido,
-								sizeof(apellido));
+						strncpy(arrayEmployees[index].lastName, lastName,
+								sizeof(lastName));
 
 						break;
 					case 3:
 
-						utn_getFloat(&sueldo, "Ingrese el nuevo sueldo",
-								"Número fuera de rango", minSueldo, maxSueldo,
+						utn_getFloat(&salary, "Ingrese el nuevo sueldo",
+								"Número fuera de rango", minSalary, maxSalary,
 								2);
 
-						arrayEmpleados[index].salary = sueldo;
+						arrayEmployees[index].salary = salary;
 						break;
 					case 4:
 
 						utn_getNumero(&sector,
 								"Ingrese el nuevo número correspondiente a sector \n ",
-								"Número inválido \n", 1, maxSectores, 2);
+								"Número inválido \n", 1, maxSectors, 2);
 
-						arrayEmpleados[index].sector = sector;
+						arrayEmployees[index].sector = sector;
 						break;
 
 					}
 
-					printEmployeeByIndex(arrayEmpleados, QTY_EMPLEADOS, index);
+					printEmployeeByIndex(arrayEmployees, QTY_EMPLOYEES, index);
 				}
 				break;
 
 			case 3:
-				if (isEmpty(arrayEmpleados, QTY_EMPLEADOS)) {
+				if (isEmpty(arrayEmployees, QTY_EMPLOYEES)) {
 					printf("%s", mensajeEmpty);
 				} else {
 					utn_getNumero(&findId,
 							"Ingrese el Id del empleado a buscar \n",
-							"Número inválido \n", 1, QTY_EMPLEADOS, 2);
+							"Número inválido \n", 1, QTY_EMPLOYEES, 2);
 
-					index = findEmployeeById(arrayEmpleados, QTY_EMPLEADOS,
+					index = findEmployeeById(arrayEmployees, QTY_EMPLOYEES,
 							findId);
 
 					if (index == -1) {
@@ -173,12 +173,12 @@ int main(void) {
 						break;
 					}
 
-					else {printEmployeeByIndex(arrayEmpleados, QTY_EMPLEADOS,index);
+					else {printEmployeeByIndex(arrayEmployees, QTY_EMPLOYEES,index);
 
 					utn_getNumero(&opcion, "Seleccione: 1 para borrar - 2 para cancelar operación \n","Opción inválida \n",1,2,2);
 
 						if (opcion == 1) {
-							removeEmployee(arrayEmpleados, QTY_EMPLEADOS,
+							removeEmployee(arrayEmployees, QTY_EMPLOYEES,
 									findId);
 							printf("%s", mensajeExito);
 						} else {
@@ -192,10 +192,10 @@ int main(void) {
 				break;
 			case 4:
 
-				if (isEmpty(arrayEmpleados, QTY_EMPLEADOS)) {
+				if (isEmpty(arrayEmployees, QTY_EMPLOYEES)) {
 					printf("%s", mensajeEmpty);
 				} else {
-					printEmployees(arrayEmpleados, QTY_EMPLEADOS);
+					printEmployees(arrayEmployees, QTY_EMPLOYEES);
 				}
 				break;
 			case 5:
