@@ -3,6 +3,11 @@
 #ifndef ARRAYEMPLOYEES_H_
 #define ARRAYEMPLOYEES_H_
 
+#define QTY_EMPLOYEES 1000
+#define QTY_SECTORS 50
+#define MIN_SALARY 20000
+#define MAX_SALARY 200000
+#define MIN_ID 1
 #define MAX_NAME 51
 #define MAX_LASTNAME 51
 
@@ -28,6 +33,8 @@ int isEmpty;
 */
 
 int initEmployees(Employee* list, int len);
+
+int getEmployee(Employee* list, int len);
 
 
 
@@ -69,6 +76,9 @@ find a employee] - (0) if Ok
 */
 int removeEmployee(Employee* list, int len, int id);
 
+int deleteEmployee(Employee *list, int len);
+
+
 
 /** \brief Sort the elements in the array of employees, the argument order
 indicate UP or DOWN order
@@ -100,6 +110,9 @@ int printEmployees(Employee* list, int length);
  */
 int isEmpty(Employee *list, int len);
 
+int updateEmployee(Employee *list, int len);
+
+
 int updateEmployeeName(Employee* list, int len, int index, char name[]);
 
 int updateEmployeeLastName(Employee* list, int len, int index, char lastName[]);
@@ -110,7 +123,7 @@ int updateEmployeeSector(Employee* list, int len, int index, int sector);
 
 int averageSalary(Employee *list, int length);
 
-
+int printEmployeeList (Employee* list, int len);
 
 
 #endif /* ARRAYEMPLOYEES_H_ */

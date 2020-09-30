@@ -19,9 +19,10 @@ int myGets(char *cadena, int longitud) {
 	if (cadena != NULL && longitud > 0) {
 
 		fpurge(stdin);
-		if (fgets(buffer, sizeof(buffer), stdin) != NULL) {
+		if (fgets(buffer, sizeof(buffer), stdin) != NULL && buffer[0] != '\n') {
 
 			if (buffer[strlen(buffer) - 1] == '\n') {
+
 
 				buffer[strlen(buffer) - 1] = '\0';
 
@@ -361,11 +362,10 @@ int esNombre(char *cadena, int limite) {
 
 		for (int i = 0; i < limite && cadena[i] != '\0'; i++) {
 
-			if (i == 0 && cadena[i] >= 'A' && cadena[i] < 'Z') {
+			if (i == 0 && cadena[i] >= 'A' && cadena[i] <= 'Z') {
 
 				continue;
 			}
-
 
 			if (i!=0 && cadena[i] == ' ' && flagEspacio == 0) {
 
