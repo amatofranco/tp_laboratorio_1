@@ -216,16 +216,11 @@ static int updateEmployeeName(Employee *list, int len, int index, char name[]) {
 
 	char buffer[51];
 
-	printf("Y aca?");
-
-
 
 	if (list != NULL && len > 0 && index >= 0 && name != NULL) {
 
 
 		strncpy(list[index].name, name, sizeof(buffer));
-
-		printf("%s",list[index].name);
 
 		ret = 0;
 	}

@@ -23,12 +23,12 @@ int isEmpty;
 
 
 
-/** Para indicar que todas las posiciones del array están vacías,
+/**
+* Para indicar que todas las posiciones del array están vacías,
 * pone la bandera (isEmpty) en TRUE en todas las posiciones
-* Poisición del array
-* \param list Employee* Puntero a array de empleados
-* \param len int length del Array
-* \return -1 Error - 0 Ok
+* \param list puntero a array de empleados
+* \param len largo del array
+* \return 0 Éxito -1 Error
 *
 */
 
@@ -36,7 +36,7 @@ int initEmployees(Employee* list, int len);
 
 
 /**
- * Valida los valores recibidos por parametros necesarios para agregar un empleado
+ * Valida los parámetros reales para agregar un empleado
  * y llama a la función add employee
  * @param list puntero a Array de empleados
  * @param len longitud del array
@@ -45,16 +45,17 @@ int initEmployees(Employee* list, int len);
 
 int getEmployee(Employee* list, int len);
 
-/** \brief Agrega en el array de empleados los valores recibdos por parametros
- * en la primer posición libre
-* \param list employee*
-* \param len int
-* \param id int
-* \param name[] char
-* \param lastName[] char
-* \param salary float
-* \param sector int
-* \return int Return (-1) if Error [Invalid length or NULL pointer or without
+/**
+* Agrega en la primer posición libre del array de empleados
+* los parámetros reales recibidos
+* @param list employee*
+* @param len int
+* @param id int
+* @param name[] char
+* @param lastName[] char
+* @param salary float
+* @param sector int
+* @return int Return (-1) if Error [Invalid length or NULL pointer or without
 free space] - (0) if Ok
 */
 int addEmployee(Employee* list, int len, int id, char name[],char
