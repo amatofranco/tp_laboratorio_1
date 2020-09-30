@@ -11,7 +11,77 @@
  * @param longitud Longitud máxima definida para la cadena
  * @return 0 Éxito -1 Error
  */
-int myGets(char *cadena, int longitud) {
+
+static int myGets(char *cadena, int longitud);
+
+/**
+ * Verifica si la cadena ingresada es solo numérica (positivo o negativo)
+ * @param cadena puntero a dirección de memoria de la cadena
+ * @param limite de la cadena
+ * @return 1 VERDADERO 0 FALSO
+ */
+
+static int esNumerica(char *cadena, int limite);
+
+/**
+ * Obtiene un número entero (positivo o negativo)
+ * @param pResultado Puntero a espacio en memoria donde será guardado el entero
+ * @return 0 Éxito -1 Error
+ */
+static int getInt(int *pResultado);
+
+/**
+ * Verifica si la cadena ingresada es un numero flotante (positivo o negativo)
+ * @param cadena puntero a dirección de memoria de la cadena
+ * @param limite de la cadena
+ * @return 1 VERDADERO 0 FALSO
+ */
+
+static int esFlotante(char *cadena, int limite);
+
+/**
+ * Obtiene un número flotante (positivo o negativo)
+ * @param pResultado Puntero a espacio en memoria donde será guardado el float
+ * @return 0 Éxito -1 Error
+ */
+static int getFloat(float *pResultado);
+
+/**
+ * Verifica si la cadena pertenece a un número negativo entero
+ * @param cadena puntero a dirección de memoria de la cadena
+ * @param limite de la cadena
+ * @return 1 VERDADERO 0 FALSO
+ */
+
+static int esNegativo(char *cadena, int limite);
+
+/**
+ * Obtiene un número negativo entero
+ * @param pResultado Puntero a espacio en memoria donde será guardado el numero
+ * @return 0 Éxito -1 Error
+ */
+static int getNegativo(int *pResultado);
+
+/**
+ * Verifica si la cadena pertenece a un número entero de 7 u 8 digitos
+ * @param cadena puntero a dirección de memoria de la cadena
+ * @param limite de la cadena
+ * @return 1 VERDADERO 0 FALSO
+ */
+
+static int esNombre(char *cadena, int limite);
+
+
+/**
+ * Obtiene una cadena alfabética, pudiendo ser dos palabras y una primer mayúscula en cada una
+ * Si la primer letra de cada palabra es minúscula, la vuelve mayúscula
+ * @param pResultado Puntero a espacio en memoria donde será guardada la cadena
+ * @return 0 Éxito -1 Error
+ */
+static int getNombre(char *pResultado);
+
+
+static int myGets(char *cadena, int longitud) {
 
 	int ret = -1;
 
@@ -42,14 +112,8 @@ int myGets(char *cadena, int longitud) {
 
 }
 
-/**
- * Verifica si la cadena ingresada es solo numérica (positivo o negativo)
- * @param cadena puntero a dirección de memoria de la cadena
- * @param limite de la cadena
- * @return 1 VERDADERO 0 FALSO
- */
 
-int esNumerica(char *cadena, int limite) {
+static int esNumerica(char *cadena, int limite) {
 
 	int ret = 1;
 
@@ -75,12 +139,8 @@ int esNumerica(char *cadena, int limite) {
 
 }
 
-/**
- * Obtiene un número entero (positivo o negativo)
- * @param pResultado Puntero a espacio en memoria donde será guardado el entero
- * @return 0 Éxito -1 Error
- */
-int getInt(int *pResultado) {
+
+static int getInt(int *pResultado) {
 
 	int ret = -1;
 	char buffer[50];
@@ -98,16 +158,7 @@ int getInt(int *pResultado) {
 	return ret;
 }
 
-/**
- * Pide y obtiene un número entero positvo o negativo
- * @param pResultado puntero a direccion de memoria donde se guardará el número
- * @param mensaje Mensaje para pedir el número
- * @param mensajeError Mensaje para indicar número inválido
- * @param minimo Número minimo permitido
- * @param maximo Número máximo permitido
- * @param reintentos cantidad de reintentos
- * @return 0 Éxito -1 Error
- */
+
 int utn_getNumero(int *pResultado, char *mensaje, char *mensajeError,
 		int minimo, int maximo, int reintentos) {
 
@@ -139,14 +190,8 @@ int utn_getNumero(int *pResultado, char *mensaje, char *mensajeError,
 
 }
 
-/**
- * Verifica si la cadena ingresada es un numero flotante (positivo o negativo)
- * @param cadena puntero a dirección de memoria de la cadena
- * @param limite de la cadena
- * @return 1 VERDADERO 0 FALSO
- */
 
-int esFlotante(char *cadena, int limite) {
+static int esFlotante(char *cadena, int limite) {
 
 	int ret = 1;
 
@@ -182,12 +227,8 @@ int esFlotante(char *cadena, int limite) {
 
 }
 
-/**
- * Obtiene un número flotante (positivo o negativo)
- * @param pResultado Puntero a espacio en memoria donde será guardado el float
- * @return 0 Éxito -1 Error
- */
-int getFloat(float *pResultado) {
+
+static int getFloat(float *pResultado) {
 
 	int ret = -1;
 	char buffer[50];
@@ -205,16 +246,6 @@ int getFloat(float *pResultado) {
 	return ret;
 }
 
-/**
- * Pide y obtiene un número flotante positvo o negativo
- * @param pResultado puntero a direccion de memoria donde se guardará el flotante
- * @param mensaje Mensaje para pedir el número
- * @param mensajeError Mensaje para indicar número inválido
- * @param minimo Número minimo permitido
- * @param maximo Número máximo permitido
- * @param reintentos cantidad de reintentos
- * @return 0 Éxito -1 Error
- */
 
 int utn_getFloat(float *pResultado, char *mensaje, char *mensajeError,
 		float minimo, float maximo, int reintentos) {
@@ -246,14 +277,8 @@ int utn_getFloat(float *pResultado, char *mensaje, char *mensajeError,
 
 }
 
-/**
- * Verifica si la cadena pertenece a un número negativo entero
- * @param cadena puntero a dirección de memoria de la cadena
- * @param limite de la cadena
- * @return 1 VERDADERO 0 FALSO
- */
 
-int esNegativo(char *cadena, int limite) {
+static int esNegativo(char *cadena, int limite) {
 
 	int ret = 1;
 
@@ -280,12 +305,7 @@ int esNegativo(char *cadena, int limite) {
 
 }
 
-/**
- * Obtiene un número negativo entero
- * @param pResultado Puntero a espacio en memoria donde será guardado el numero
- * @return 0 Éxito -1 Error
- */
-int getNegativo(int *pResultado) {
+static int getNegativo(int *pResultado) {
 
 	int ret = -1;
 	char buffer[50];
@@ -303,16 +323,6 @@ int getNegativo(int *pResultado) {
 	return ret;
 }
 
-/**
- * Pide y obtiene un número negativo entero
- * @param pResultado puntero a direccion de memoria donde se guardará el numero
- * @param mensaje Mensaje para pedir el número
- * @param mensajeError Mensaje para indicar número inválido
- * @param minimo Número minimo permitido
- * @param maximo Número máximo permitido
- * @param reintentos cantidad de reintentos
- * @return 0 Éxito -1 Error
- */
 
 int utn_getNegativo(int *pResultado, char *mensaje, char *mensajeError,
 		int minimo, int maximo, int reintentos) {
@@ -344,16 +354,8 @@ int utn_getNegativo(int *pResultado, char *mensaje, char *mensajeError,
 
 }
 
-/**
- * Verifica si la cadena pertenece a un número entero de 7 u 8 digitos
- * @param cadena puntero a dirección de memoria de la cadena
- * @param limite de la cadena
- * @return 1 VERDADERO 0 FALSO
- */
 
-
-
-int esNombre(char *cadena, int limite) {
+static int esNombre(char *cadena, int limite) {
 
 	int ret = 1;
 	int flagEspacio = 0;
@@ -395,12 +397,8 @@ int esNombre(char *cadena, int limite) {
 
 }
 
-/**
- * Obtiene una cadena alfabética, pudiendo ser dos palabras y una primer Mayúscula en cada una
- * @param pResultado Puntero a espacio en memoria donde será guardada la cadena
- * @return 0 Éxito -1 Error
- */
-int getNombre(char *pResultado) {
+
+static int getNombre(char *pResultado) {
 
 	int ret = -1;
 	char buffer[51];
@@ -420,14 +418,6 @@ int getNombre(char *pResultado) {
 	return ret;
 }
 
-/**
- * Pide y obtiene un nombre o apellido, pudiendo ser dos palabras y una primer Mayúscula en cada una
- * @param pResultado puntero a direccion de memoria donde se guardará el nombre
- * @param mensaje Mensaje para pedir el nombre
- * @param mensajeError Mensaje para indicar nombre inválido
- * @param reintentos cantidad de reintentos
- * @return 0 Éxito -1 Error
- */
 
 int utn_getNombre(char *pResultado, char *mensaje, char *mensajeError,
 		int reintentos) {

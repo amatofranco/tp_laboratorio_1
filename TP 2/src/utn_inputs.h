@@ -1,48 +1,57 @@
-/*
- * utn_inputs.h
- *
- *  Created on: Sep 27, 2020
- *      Author: francoamato
- */
 
 #ifndef UTN_INPUTS_H_
 #define UTN_INPUTS_H_
 
-int myGets (char* cadena, int longitud);
-
-int esNumerica(char* cadena, int limite);
-
-int getInt(int* pResultado);
+/**
+ * Pide y obtiene un número entero positvo o negativo
+ * @param pResultado puntero a direccion de memoria donde se guardará el número
+ * @param mensaje Mensaje para pedir el número
+ * @param mensajeError Mensaje para indicar número inválido
+ * @param minimo Número minimo permitido
+ * @param maximo Número máximo permitido
+ * @param reintentos cantidad de reintentos
+ * @return 0 Éxito -1 Error
+ */
 
 int utn_getNumero(int* pResultado, char* mensaje, char* mensajeError, int minimo, int maximo, int reintentos);
 
-int esFlotante(char* cadena, int limite);
-
-int getFloat(float* pResultado);
+/**
+ * Pide y obtiene un número flotante positvo o negativo
+ * @param pResultado puntero a direccion de memoria donde se guardará el flotante
+ * @param mensaje Mensaje para pedir el número
+ * @param mensajeError Mensaje para indicar número inválido
+ * @param minimo Número minimo permitido
+ * @param maximo Número máximo permitido
+ * @param reintentos cantidad de reintentos
+ * @return 0 Éxito -1 Error
+ */
 
 int utn_getFloat(float* pResultado, char* mensaje, char* mensajeError, float minimo, float maximo, int reintentos);
 
-
-int esNegativo(char *cadena, int limite);
-
-int getNegativo(int *pResultado);
-
+/**
+ * Pide y obtiene un número negativo entero
+ * @param pResultado puntero a direccion de memoria donde se guardará el numero
+ * @param mensaje Mensaje para pedir el número
+ * @param mensajeError Mensaje para indicar número inválido
+ * @param minimo Número minimo permitido
+ * @param maximo Número máximo permitido
+ * @param reintentos cantidad de reintentos
+ * @return 0 Éxito -1 Error
+ */
 int utn_getNegativo(int *pResultado, char *mensaje, char *mensajeError,
 		int minimo, int maximo, int reintentos);
 
 
-int esNombre(char *cadena, int limite);
-
-int getNombre(char *pResultado);
+/**
+ * Pide y obtiene un nombre o apellido, pudiendo ser dos palabras y una primer Mayúscula en cada una
+ * @param pResultado puntero a direccion de memoria donde se guardará el nombre
+ * @param mensaje Mensaje para pedir el nombre
+ * @param mensajeError Mensaje para indicar nombre inválido
+ * @param reintentos cantidad de reintentos
+ * @return 0 Éxito -1 Error
+ */
 
 int utn_getNombre(char *pResultado, char *mensaje, char *mensajeError,int reintentos);
-
-
-
-
-
-
-
 
 
 
