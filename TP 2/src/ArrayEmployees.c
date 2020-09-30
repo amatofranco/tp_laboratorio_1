@@ -104,9 +104,27 @@ int sortEmployees(Employee *list, int len, int order) {
 
 			if (order == 1) {
 
+				if (strncmp(list[i].lastName, list[i + 1].lastName, MAX_NAME)
+						> 0
+						|| (strncmp(list[i].lastName, list[i + 1].lastName,
+								MAX_NAME) == 0
+								&& list[i].sector > list[i + 1].sector)) {
+
+					flagSwap = 1;
+					buffer = list[i];
+					list[i] = list[i + 1];
+					list[i + 1] = buffer;
+				}
+
+			}
+
+			else if (order == 0) {
 
 				if (strncmp(list[i].lastName, list[i + 1].lastName, MAX_NAME)
-						> 0) {
+						< 0
+						|| (strncmp(list[i].lastName, list[i + 1].lastName,
+								MAX_NAME) == 0
+								&& list[i].sector < list[i + 1].sector)) {
 
 					flagSwap = 1;
 					buffer = list[i];
@@ -123,12 +141,9 @@ int sortEmployees(Employee *list, int len, int order) {
 	return ret;
 }
 
-
-
 int printEmployees(Employee *list, int length) {
 
 	int ret = -1;
-
 
 	if (list != NULL && length > 0) {
 
@@ -150,7 +165,7 @@ static int printEmployee(Employee *employee) {
 
 	int ret = -1;
 
-	if (employee != NULL && employee->isEmpty==0) {
+	if (employee != NULL && employee->isEmpty == 0) {
 
 		printf("Empleado id %d: %s %s, salario: %.2f, sector: %d \n",
 				employee->id, employee->lastName, employee->name,
@@ -177,5 +192,114 @@ int isEmpty(Employee *list, int len) {
 	}
 
 	return ret;
+}
+
+int updateEmployeeName(Employee *list, int len, int index, char name[]) {
+
+	int ret = -1;
+
+	char buffer[51];
+
+	if (list != NULL && len > 0 && index >= 0 && name != NULL) {
+
+		strncpy(list[index].name, name, sizeof(buffer));
+
+		ret = 0;
+	}
+
+	return ret;
+
+}
+
+int updateEmployeeLastName(Employee *list, int len, int index, char lastName[]) {
+
+	int ret = -1;
+
+	char buffer[51];
+
+	if (list != NULL && len > 0 && index >= 0 && lastName != NULL) {
+
+		strncpy(list[index].lastName, lastName, sizeof(buffer));
+
+		ret = 0;
+	}
+
+	return ret;
+
+}
+
+int updateEmployeeSalary(Employee *list, int len, int index, float salary) {
+
+	int ret = -1;
+
+	if (list != NULL && len > 0 && index >= 0 && salary > 0) {
+
+		list[index].salary = salary;
+
+		ret = 0;
+	}
+
+	return ret;
+
+}
+
+int updateEmployeeSector(Employee *list, int len, int index, int sector) {
+
+	int ret = -1;
+
+	if (list != NULL && len > 0 && index >= 0 && sector > 0) {
+
+		list[index].sector = sector;
+
+		ret = 0;
+	}
+
+	return ret;
+
+}
+
+int averageSalary(Employee *list, int length) {
+
+	int ret = -1;
+
+	int count = 0;
+
+	float totalSalary = 0;
+
+	float averageSalary = 0;
+
+	int aboveAverage = 0;
+
+	if (list != NULL && length > 0) {
+
+		for (int i = 0; i < length; i++) {
+
+			if (list[i].isEmpty == 0) {
+
+				totalSalary += list[i].salary;
+				count++;
+			}
+
+		}
+
+		averageSalary = totalSalary / count;
+
+		for (int i = 0; i < length; i++) {
+
+			if (list[i].isEmpty == 0 && list[i].salary > averageSalary){
+
+				aboveAverage++;
+			}
+
+		}
+
+		printf(" Total salarios: %.2f\n Salario promedio: %.2f\n "
+			   "Cantidad de salarios por encima del promedio: %d \n",
+			    totalSalary, averageSalary, aboveAverage);
+
+		ret = 0;
+	}
+	return ret;
+
 }
 

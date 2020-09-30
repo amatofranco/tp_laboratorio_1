@@ -100,6 +100,17 @@ int printEmployees(Employee* list, int length);
  */
 int isEmpty(Employee *list, int len);
 
+int updateEmployeeName(Employee* list, int len, int index, char name[]);
+
+int updateEmployeeLastName(Employee* list, int len, int index, char lastName[]);
+
+int updateEmployeeSalary(Employee* list, int len, int index, float salary);
+
+int updateEmployeeSector(Employee* list, int len, int index, int sector);
+
+int averageSalary(Employee *list, int length);
+
+
 
 
 #endif /* ARRAYEMPLOYEES_H_ */
