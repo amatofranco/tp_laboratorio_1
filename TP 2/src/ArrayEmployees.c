@@ -13,7 +13,57 @@ float minSalary = MIN_SALARY;
 float maxSalary = MAX_SALARY;
 int id = MIN_ID;
 
+/**
+ * Imprime nombre,apellido,salario, sector e id de un empleado
+ * @param employee empleado a imprimir
+ * @return 0 Éxito -1 Error
+ */
 static int printEmployee(Employee *employee);
+
+/**
+ * Actualiza el nombre de un empleado en el array de empleados
+ * @param list puntero a array de empleados
+ * @param len longitud del array
+ * @param index posición del array a la cual modificar
+ * @param name nuevo nombre
+ * @return 0 Éxito -1 Error;
+ */
+static int updateEmployeeName(Employee *list, int len, int index, char name[]);
+
+/**
+ * Actualiza el apellido de un empleado en el array de empleados
+ * @param list puntero a array de empleados
+ * @param len longitud del array
+ * @param index posición del array a la cual modificar
+ * @param name nuevo apellido
+ * @return 0 Éxito -1 Error;
+ */
+
+static int updateEmployeeLastName(Employee *list, int len, int index,
+		char lastName[]);
+
+/**
+ * Actualiza el salario de un empleado en el array de empleados
+ * @param list puntero a array de empleados
+ * @param len longitud del array
+ * @param index posición del array a la cual modificar
+ * @param name nuevo salario
+ * @return 0 Éxito -1 Error;
+ */
+
+static int updateEmployeeSalary(Employee *list, int len, int index,
+		float salary);
+
+/**
+ * Actualiza el salario de un empleado en el array de empleados
+ * @param list puntero a array de empleados
+ * @param len longitud del array
+ * @param index posición del array a la cual modificar
+ * @param name nuevo salario
+ * @return 0 Éxito -1 Error;
+ */
+
+static int updateEmployeeSector(Employee *list, int len, int index, int sector);
 
 int initEmployees(Employee *list, int len) {
 
@@ -32,7 +82,7 @@ int initEmployees(Employee *list, int len) {
 
 int getEmployee(Employee *list, int length) {
 
-	int ret;
+	int ret = 0;
 
 	if (list != NULL && length > 0) {
 
@@ -69,7 +119,6 @@ int getEmployee(Employee *list, int length) {
 		} else {
 
 			id++;
-			ret = 0;
 		}
 	}
 	return ret;
@@ -105,6 +154,39 @@ int addEmployee(Employee *list, int len, int id, char name[], char lastName[],
 	return ret;
 }
 
+int isEmpty(Employee *list, int len) {
+
+	int ret = 1;
+
+	if (list != NULL && len > 0) {
+		for (int i = 0; i < len; i++) {
+
+			if (list[i].isEmpty == 0) {
+
+				ret = 0;
+			}
+		}
+	}
+
+	return ret;
+}
+
+static int printEmployee(Employee *employee) {
+
+	int ret = -1;
+
+	if (employee != NULL && employee->isEmpty == 0) {
+
+		printf("Empleado id %d: %s %s, salario: %.2f, sector: %d \n",
+				employee->id, employee->lastName, employee->name,
+				employee->salary, employee->sector);
+
+		ret = 0;
+
+	}
+	return ret;
+}
+
 int findEmployeeById(Employee *list, int len, int id) {
 
 	int ret = -1;
@@ -127,6 +209,175 @@ int findEmployeeById(Employee *list, int len, int id) {
 
 	return ret;
 }
+
+static int updateEmployeeName(Employee *list, int len, int index, char name[]) {
+
+	int ret = -1;
+
+	char buffer[51];
+
+	printf("Y aca?");
+
+
+
+	if (list != NULL && len > 0 && index >= 0 && name != NULL) {
+
+
+		strncpy(list[index].name, name, sizeof(buffer));
+
+		printf("%s",list[index].name);
+
+		ret = 0;
+	}
+
+	return ret;
+
+}
+
+static int updateEmployeeLastName(Employee *list, int len, int index,
+		char lastName[]) {
+
+	int ret = -1;
+
+	char buffer[51];
+
+	if (list != NULL && len > 0 && index >= 0 && lastName != NULL) {
+
+		strncpy(list[index].lastName, lastName, sizeof(buffer));
+
+		ret = 0;
+	}
+
+	return ret;
+
+}
+
+static int updateEmployeeSalary(Employee *list, int len, int index,
+		float salary) {
+
+	int ret = -1;
+
+	if (list != NULL && len > 0 && index >= 0 && salary > 0) {
+
+		list[index].salary = salary;
+
+		ret = 0;
+	}
+
+	return ret;
+
+}
+
+static int updateEmployeeSector(Employee *list, int len, int index, int sector) {
+
+	int ret = -1;
+
+	if (list != NULL && len > 0 && index >= 0 && sector > 0) {
+
+		list[index].sector = sector;
+
+		ret = 0;
+	}
+
+	return ret;
+
+}
+
+int updateEmployee(Employee *list, int len) {
+
+	int ret = 0;
+
+	int findId;
+
+	int option;
+
+	int index;
+
+	char idError[] = "No existe un empleado con el Id seleccionado \n";
+
+	if (utn_getNumero(&findId, "Ingrese el Id del empleado a buscar \n",
+			"Número inválido \n", 1, QTY_EMPLOYEES, 2) != 0) {
+
+		ret = -1;
+	} else {
+
+		index = findEmployeeById(list, QTY_EMPLOYEES, findId);
+
+		if (index == -1) {
+
+			printf("%s", idError);
+
+			ret = -1;
+
+		}
+
+		else if (utn_getNumero(&option,
+				"Ingrese el número correspondiente a la opción: "
+						"\n 1-Modificar NOMBRE \n 2-Modificar APELLIDO \n 3-Modificar SUELDO \n 4 "
+						"Modificar SECTOR \n", "Opción inválida \n", 1, 4, 2)
+				!= 0) {
+
+			ret = -1;
+		}
+
+		else {
+
+			switch (option) {
+
+			case 1:
+
+				if (utn_getNombre(name, "Ingrese el nuevo nombre \n","Nombre Inválido \n", 2) != 0
+					|| (updateEmployeeName(list, len, index, name) != 0)) {
+
+					ret = -1;
+				}
+
+
+				break;
+
+			case 2:
+
+				if (utn_getNombre(lastName, "Ingrese el nuevo apellido \n",
+						"Apellido Inválido \n", 2) != 0
+						|| updateEmployeeLastName(list, len, index, lastName)
+								!= 0) {
+
+					ret = -1;
+				}
+				break;
+
+			case 3:
+
+				if (utn_getFloat(&salary, "Ingrese el nuevo sueldo \n",
+						"Número fuera de rango", minSalary, maxSalary, 2) != 0
+						|| updateEmployeeSalary(list, len, index, salary)
+								!= 0) {
+					ret = -1;
+				}
+
+				break;
+
+			case 4:
+
+				if (utn_getNumero(&sector,
+						"Ingrese el nuevo número correspondiente a sector \n ",
+						"Número inválido \n", 1, QTY_SECTORS, 2) != 0
+						|| updateEmployeeSector(list, len, index, sector)
+								!= 0) {
+
+					ret = -1;
+
+					break;
+
+				}
+			}
+		}
+
+	}
+	return ret;
+}
+
+
 
 int deleteEmployee(Employee *list, int len) {
 
@@ -205,46 +456,54 @@ int sortEmployees(Employee *list, int len, int order) {
 
 	int flagSwap;
 
-	do {
+	if (list != NULL && len > 0) {
 
-		flagSwap = 0;
+		do {
 
-		for (int i = 0; i < len - 1; i++) {
+			flagSwap = 0;
 
-			if (order == 1) {
+			for (int i = 0; i < len - 1; i++) {
 
-				if (strncmp(list[i].lastName, list[i + 1].lastName,
-				MAX_NAME) > 0
-						|| (strncmp(list[i].lastName, list[i + 1].lastName,
-						MAX_NAME) == 0 && list[i].sector > list[i + 1].sector)) {
+				if (order == 1) {
 
-					flagSwap = 1;
-					buffer = list[i];
-					list[i] = list[i + 1];
-					list[i + 1] = buffer;
+					if (strncmp(list[i].lastName, list[i + 1].lastName,
+					MAX_NAME) > 0
+							|| (strncmp(list[i].lastName, list[i + 1].lastName,
+							MAX_NAME) == 0
+									&& list[i].sector > list[i + 1].sector)) {
+
+						flagSwap = 1;
+						buffer = list[i];
+						list[i] = list[i + 1];
+						list[i + 1] = buffer;
+					}
+
 				}
 
-			}
+				else if (order == 0) {
 
-			else if (order == 0) {
+					if (strncmp(list[i].lastName, list[i + 1].lastName,
+					MAX_NAME) < 0
+							|| (strncmp(list[i].lastName, list[i + 1].lastName,
+							MAX_NAME) == 0
+									&& list[i].sector < list[i + 1].sector)) {
 
-				if (strncmp(list[i].lastName, list[i + 1].lastName,
-				MAX_NAME) < 0
-						|| (strncmp(list[i].lastName, list[i + 1].lastName,
-						MAX_NAME) == 0 && list[i].sector < list[i + 1].sector)) {
+						flagSwap = 1;
+						buffer = list[i];
+						list[i] = list[i + 1];
+						list[i + 1] = buffer;
+					}
 
-					flagSwap = 1;
-					buffer = list[i];
-					list[i] = list[i + 1];
-					list[i + 1] = buffer;
 				}
-
 			}
-		}
 
-		len--;
+			len--;
 
-	} while (flagSwap == 1);
+		} while (flagSwap == 1);
+
+		ret = 0;
+
+	}
 	return ret;
 }
 
@@ -266,196 +525,6 @@ int printEmployees(Employee *list, int length) {
 		ret = 0;
 	}
 	return ret;
-}
-
-static int printEmployee(Employee *employee) {
-
-	int ret = -1;
-
-	if (employee != NULL && employee->isEmpty == 0) {
-
-		printf("Empleado id %d: %s %s, salario: %.2f, sector: %d \n",
-				employee->id, employee->lastName, employee->name,
-				employee->salary, employee->sector);
-
-		ret = 0;
-
-	}
-	return ret;
-}
-
-int isEmpty(Employee *list, int len) {
-
-	int ret = 1;
-
-	if (list != NULL && len > 0) {
-		for (int i = 0; i < len; i++) {
-
-			if (list[i].isEmpty == 0) {
-
-				ret = 0;
-			}
-		}
-	}
-
-	return ret;
-}
-
-int updateEmployee(Employee *list, int len) {
-
-	int ret = 0;
-
-	int findId;
-
-	int option;
-
-	int index;
-
-	char idError[] = "No existe un empleado con el Id seleccionado \n";
-
-	if (utn_getNumero(&findId, "Ingrese el Id del empleado a buscar \n",
-			"Número inválido \n", 1, QTY_EMPLOYEES, 2) != 0) {
-
-		ret = -1;
-	} else {
-
-		index = findEmployeeById(list, QTY_EMPLOYEES, findId);
-
-		if (index == -1) {
-
-			printf("%s", idError);
-
-			ret = -1;
-
-		}
-
-		else if (utn_getNumero(&option,
-				"Ingrese el número correspondiente a la opción: "
-						"\n 1-Modificar NOMBRE \n 2-Modificar APELLIDO \n 3-Modificar SUELDO \n 4 "
-						"Modificar SECTOR \n", "Opción inválida \n", 1, 4, 2)
-				!= 0) {
-
-			ret = -1;
-		}
-
-		else {
-
-			switch (option) {
-
-			case 1:
-
-				if (utn_getNombre(name, "Ingrese el nuevo nombre \n",
-						"Nombre Inválido \n", 2) != 0
-						&& updateEmployeeName(list, len, index, name) != 0) {
-					ret = -1;
-				}
-
-				break;
-
-			case 2:
-
-				if (utn_getNombre(lastName, "Ingrese el nuevo apellido \n",
-						"Apellido Inválido \n", 2) != 0
-						&& updateEmployeeLastName(list, len, index, lastName)
-								!= 0) {
-
-					ret = -1;
-				}
-				break;
-
-			case 3:
-
-				if (utn_getFloat(&salary, "Ingrese el nuevo sueldo",
-						"Número fuera de rango", minSalary, maxSalary, 2) != 0
-						&& updateEmployeeSalary(list, len, index, salary)
-								!= 0) {
-					ret = -1;
-				}
-
-				break;
-
-			case 4:
-
-				if (utn_getNumero(&sector,
-						"Ingrese el nuevo número correspondiente a sector \n ",
-						"Número inválido \n", 1, QTY_SECTORS, 2) != 0
-						&& updateEmployeeSector(list, len, index, sector)
-								!= 0) {
-
-					ret = -1;
-
-					break;
-
-				}
-			}
-		}
-
-	}
-	return ret;
-}
-
-int updateEmployeeName(Employee *list, int len, int index, char name[]) {
-
-	int ret = -1;
-
-	char buffer[51];
-
-	if (list != NULL && len > 0 && index >= 0 && name != NULL) {
-
-		strncpy(list[index].name, name, sizeof(buffer));
-
-		ret = 0;
-	}
-
-	return ret;
-
-}
-
-int updateEmployeeLastName(Employee *list, int len, int index, char lastName[]) {
-
-	int ret = -1;
-
-	char buffer[51];
-
-	if (list != NULL && len > 0 && index >= 0 && lastName != NULL) {
-
-		strncpy(list[index].lastName, lastName, sizeof(buffer));
-
-		ret = 0;
-	}
-
-	return ret;
-
-}
-
-int updateEmployeeSalary(Employee *list, int len, int index, float salary) {
-
-	int ret = -1;
-
-	if (list != NULL && len > 0 && index >= 0 && salary > 0) {
-
-		list[index].salary = salary;
-
-		ret = 0;
-	}
-
-	return ret;
-
-}
-
-int updateEmployeeSector(Employee *list, int len, int index, int sector) {
-
-	int ret = -1;
-
-	if (list != NULL && len > 0 && index >= 0 && sector > 0) {
-
-		list[index].sector = sector;
-
-		ret = 0;
-	}
-
-	return ret;
-
 }
 
 int averageSalary(Employee *list, int length) {
@@ -505,19 +574,26 @@ int averageSalary(Employee *list, int length) {
 
 int printEmployeeList(Employee *list, int len) {
 
-	int ret = 0;
+	int ret = -1;
 
 	int option;
 
-	if (utn_getNumero(&option, "Seleccione: 1 para ORDENAMIENTO ASCENDENTE - "
-			"0 para ORDENAMIENTO DESCENDENTE \n", "Opción inválida \n", 0, 1, 2)
-			!= 0) {
+	if (list != NULL && len > 0) {
 
-		ret = -1;
-	} else {
-		sortEmployees(list, len, option);
-		printEmployees(list, len);
-		averageSalary(list, len);
+		if (utn_getNumero(&option,
+				"Seleccione: 1 para ORDENAMIENTO ASCENDENTE - "
+						"0 para ORDENAMIENTO DESCENDENTE \n",
+				"Opción inválida \n", 0, 1, 2) != 0) {
+
+			ret = -1;
+		} else {
+			sortEmployees(list, len, option);
+			printEmployees(list, len);
+			averageSalary(list, len);
+
+			ret = 0;
+
+		}
 
 	}
 

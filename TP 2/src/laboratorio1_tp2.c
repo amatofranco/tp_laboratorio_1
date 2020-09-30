@@ -4,8 +4,19 @@
 #include "ArrayEmployees.h"
 #include "utn_inputs.h"
 
+/**
+ * Imprime mensaje error
+ */
 void errorMessage();
+
+/**
+ * Imprime mensaje de operación exitosa
+ */
 void successMessage();
+
+/**
+ * Imprime mensaje de array vacío
+ */
 void isEmptyMessage();
 
 int main(void) {
@@ -14,9 +25,6 @@ int main(void) {
 
 	int option;
 	int ret;
-
-	int findId;
-	int index;
 
 	initEmployees(arrayEmployees, QTY_EMPLOYEES);
 

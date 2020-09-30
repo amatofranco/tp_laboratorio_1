@@ -23,8 +23,8 @@ int isEmpty;
 
 
 
-/** \brief Para indicar que todas las posiciones del array están vacías, esta función pone la bandera
-*(isEmpty) en TRUE en todas las posiciones del array
+/** Para indicar que todas las posiciones del array están vacías,
+* pone la bandera (isEmpty) en TRUE en todas las posiciones
 * Poisición del array
 * \param list Employee* Puntero a array de empleados
 * \param len int length del Array
@@ -34,12 +34,19 @@ int isEmpty;
 
 int initEmployees(Employee* list, int len);
 
+
+/**
+ * Valida los valores recibidos por parametros necesarios para agregar un empleado
+ * y llama a la función add employee
+ * @param list puntero a Array de empleados
+ * @param len longitud del array
+ * @return 0 Éxito -1 ERror
+ */
+
 int getEmployee(Employee* list, int len);
 
-
-
-/** \brief add in a existing list of employees the values received as parameters
-* in the first empty position
+/** \brief Agrega en el array de empleados los valores recibdos por parametros
+ * en la primer posición libre
 * \param list employee*
 * \param len int
 * \param id int
@@ -53,55 +60,6 @@ free space] - (0) if Ok
 int addEmployee(Employee* list, int len, int id, char name[],char
 lastName[],float salary,int sector);
 
-
-/** \brief find an Employee by Id en returns the index position in array.
-*
-* \param list Employee*
-* \param len int
-* \param id int
-* \return Return employee index position or (-1) if [Invalid length or NULL
-pointer received or employee not found]
-*
-*/
-int findEmployeeById(Employee* list, int len,int id);
-
-/** \brief Remove a Employee by Id (put isEmpty Flag in 1)
-*
-* \param list Employee*
-* \param len int
-* \param id int
-* \return int Return (-1) if Error [Invalid length or NULL pointer or if can't
-find a employee] - (0) if Ok
-*
-*/
-int removeEmployee(Employee* list, int len, int id);
-
-int deleteEmployee(Employee *list, int len);
-
-
-
-/** \brief Sort the elements in the array of employees, the argument order
-indicate UP or DOWN order
-*
-* \param list Employee*
-* \param len int
-* \param order int [1] indicate UP - [0] indicate DOWN
-* \return int Return (-1) if Error [Invalid length or NULL pointer] - (0) if Ok
-*
-*/
-int sortEmployees(Employee* list, int len, int order);
-
-/** \brief print the content of employees array
-*
-* \param list Employee*
-* \param length int
-* \return int
-*
-*/
-int printEmployees(Employee* list, int length);
-
-
-
 /**
  * Verifica si el array de empleados en su totalidad está vacio
  * @param list Puntero a array de empleados
@@ -110,18 +68,89 @@ int printEmployees(Employee* list, int length);
  */
 int isEmpty(Employee *list, int len);
 
+
+/**
+ * Verifica si existe una posición ocupada del array
+ * que coincida con el valor del parametro id y devuelve la posicion
+ * @param list Puntero a array de empleados
+ * @param len longitud del array
+ * @param id id a buscar
+ * @return posición del array
+ */
+int findEmployeeById(Employee* list, int len,int id);
+
+/**
+ * Actualiza o nombre, o apellido, o salario o sector de un empleado
+ * de la lista de empleados, verificando si existe su id
+ * @param list puntero a array de empleados
+ * @param len longitud del array
+ * @return 0 Éxito -1 Error
+ */
 int updateEmployee(Employee *list, int len);
 
 
-int updateEmployeeName(Employee* list, int len, int index, char name[]);
+/**
+* Elimina un empleado del array de empleados tomando su id
+* Pone (isEmpty) en 1
+* @param list puntero a array de empleados
+* @param len largo del array
+* @param id id del empleado a eliminar
+* @return 0 Éxito -1 Error
+*
+*/
+int removeEmployee(Employee* list, int len, int id);
 
-int updateEmployeeLastName(Employee* list, int len, int index, char lastName[]);
+/**
+ * Pide un empleado de la lista de empleados a eliminar por id,
+ * verifica que existe y llama a la funcion removeEmployee
+ * @param list puntero a array de empleados
+ * @param len largo del array
+ * @return
+ */
 
-int updateEmployeeSalary(Employee* list, int len, int index, float salary);
+int deleteEmployee(Employee *list, int len);
 
-int updateEmployeeSector(Employee* list, int len, int index, int sector);
+
+
+/**
+* Ordena los elementos del array de empleados
+* en base a apellido y sector de manera ascendente o descendente
+* @param lista puntero a array de empleados
+* @param len largo del array
+* @param order 1 Ordenamiento ascendente 0 Ordenamiento descendente
+* @return 0 Éxito -1 Error
+*
+*/
+int sortEmployees(Employee* list, int len, int order);
+
+/** \brief Imprime el contenido de todas las posiciones
+* del array de empleados ocupadas
+* \param list puntero a array de empleados
+* \param len largo del array
+* \return 0 Éxito -1 Error
+*
+*/
+int printEmployees(Employee* list, int length);
+
+
+/**
+ * Calcula el promedio del salario de los empleados
+ * y la cantidad de salarios por encima del promedio y lo imprime
+ * @param list puntero a array de empleados
+ * @param length largo del array
+ * @return 0 Éxito -1 Error
+ */
 
 int averageSalary(Employee *list, int length);
+
+/**
+ * Toma la opción para realizar el tipo de ordenamiento del array
+ * e imprime la lista de empleados y el salario promedio,
+ * llamando a las funciones sortEmployees, printEmployees y averageSalary
+ * @param list
+ * @param len
+ * @return
+ */
 
 int printEmployeeList (Employee* list, int len);
 
