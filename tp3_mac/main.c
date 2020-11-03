@@ -1,8 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "LinkedList.h"
 #include "Controller.h"
 #include "Employee.h"
+#include "utn_inputs.h"
+
 
 /****************************************************
     Menu:
@@ -20,19 +23,46 @@
 
 
 
+
 int main()
 {
     int option = 0;
     LinkedList* listaEmpleados = ll_newLinkedList();
 
-    do{
+
+
+do{
+
+	   utn_getNumero(&option,"Ingrese opcion","Opcion Inválida",1,10,2);
+
         switch(option)
         {
             case 1:
                 controller_loadFromText("data.csv",listaEmpleados);
+
+                printf("%d",ll_len(listaEmpleados));
+
                 break;
+
+            case 6:
+
+            	if(controller_ListEmployee(listaEmpleados)==0){
+
+            		printf("Operación exitosa");
+            	}
+            	break;
+
+
         }
-    }while(option != 10);
+}while(option!=10);
+
+
+
+
+
+
+
+
     return 0;
 }
 
