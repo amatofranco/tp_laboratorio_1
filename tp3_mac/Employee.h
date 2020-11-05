@@ -8,9 +8,16 @@ typedef struct
     int sueldo;
 }Employee;
 
+#define MAX_ID 5000
+#define MAX_NOMBRE 51
+#define MAX_HORAS 1000000
+#define MAX_SUELDO 1000000
+
+
 Employee* employee_new();
-Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajadasStr,char* sueldoStr);
-void employee_delete(Employee *this);
+Employee* employee_newParametrosTxt(char* idStr,char* nombreStr,char* horasTrabajadasStr,char* sueldoStr);
+Employee* employee_newParametros(int id,char* nombre,int horasTrabajadas,int sueldo);
+int employee_delete(Employee *this);
 
 int employee_setId(Employee* this,int id);
 int employee_setIdTxt(Employee *this, char *id);

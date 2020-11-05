@@ -4,18 +4,9 @@
 
 #include "Employee.h"
 
-#define MAX_ID 5000
-#define MAX_NOMBRE 51
-#define MAX_HORAS 1000000
-#define MAX_SUELDO 1000000
-
-
-
 static int isValidNumber(char *string, int length);
 
 static int isValidName(char *string, int length);
-
-
 
 static int isValidNumber(char *string, int length) {
 
@@ -46,7 +37,6 @@ static int isValidNumber(char *string, int length) {
 static int isValidName(char *string, int length) {
 
 	int ret = 1;
-	int flagSpace = 0;
 
 	if (string != NULL && length > 0) {
 
@@ -57,16 +47,8 @@ static int isValidName(char *string, int length) {
 				continue;
 			}
 
-			if (i != 0 && string[i] == ' ' && flagSpace == 0) {
+			if (i != 0 && (string[i] == '-' || string[i] == ' ')) {
 
-				flagSpace = 1;
-
-				continue;
-			}
-
-			if (flagSpace == 1 && string[i] >= 'A' && string[i] < 'Z') {
-
-				flagSpace = 2;
 				continue;
 			}
 
@@ -85,9 +67,6 @@ static int isValidName(char *string, int length) {
 
 }
 
-
-
-
 Employee* employee_new(void) {
 
 	Employee *auxP = NULL;
@@ -98,21 +77,22 @@ Employee* employee_new(void) {
 
 }
 
+Employee* employee_newParametrosTxt(char *idStr, char *nombreStr,
+		char *horasTrabajadasStr, char *sueldoStr) {
 
-
-Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajadasStr,char* sueldoStr){
-
-Employee *this = NULL;
+	Employee *this = NULL;
 
 	this = employee_new();
 
-	if (this != NULL && idStr != NULL && nombreStr != NULL && horasTrabajadasStr != NULL
-			&& sueldoStr != NULL) {
+	if (this != NULL && idStr != NULL && nombreStr != NULL
+			&& horasTrabajadasStr != NULL && sueldoStr != NULL) {
 
-		if (employee_setIdTxt(this,idStr)==-1 ||
-			employee_setNombre(this,nombreStr)==-1 ||
-			employee_setHorasTrabajadasTxt(this,horasTrabajadasStr)==-1||
-			employee_setSueldoTxt(this, sueldoStr)==-1) {
+		if (employee_setIdTxt(this, idStr) == -1
+				|| employee_setNombre(this, nombreStr) == -1
+				|| employee_setHorasTrabajadasTxt(this, horasTrabajadasStr)
+						== -1 || employee_setSueldoTxt(this, sueldoStr) == -1) {
+
+			printf("Se borro id %s %s\n", idStr, nombreStr);
 
 			employee_delete(this);
 
@@ -123,22 +103,48 @@ Employee *this = NULL;
 	}
 
 	return this;
+}
+
+Employee* employee_newParametros(int id, char *nombre, int horasTrabajadas,
+		int sueldo) {
+
+	Employee *this = NULL;
+
+	this = employee_new();
+
+	if (this != NULL && nombre != NULL && horasTrabajadas >= 0 && sueldo) {
+
+		if (employee_setId(this, id) == -1
+				|| employee_setNombre(this, nombre) == -1
+				|| employee_setHorasTrabajadas(this, horasTrabajadas) == -1
+				|| employee_setSueldo(this, sueldo) == -1) {
+
+			employee_delete(this);
+
+			this = NULL;
+
+		}
+
 	}
 
+	return this;
+}
 
+int employee_delete(Employee *this) {
 
-void employee_delete(Employee *this) {
+	int ret = -1;
 
 	if (this != NULL) {
 
 		free(this);
 
+		ret = 0;
+
 	}
 
+	return ret;
+
 }
-
-
-
 
 int employee_setId(Employee *this, int id) {
 
@@ -155,7 +161,6 @@ int employee_setId(Employee *this, int id) {
 	return ret;
 
 }
-
 
 int employee_setIdTxt(Employee *this, char *id) {
 
@@ -177,7 +182,6 @@ int employee_setIdTxt(Employee *this, char *id) {
 
 }
 
-
 int employee_getId(Employee *this, int *id) {
 
 	int ret = -1;
@@ -192,7 +196,6 @@ int employee_getId(Employee *this, int *id) {
 
 	return ret;
 }
-
 
 int employee_setNombre(Employee *this, char *nombre) {
 
@@ -228,15 +231,15 @@ int employee_getNombre(Employee *this, char *nombre) {
 	return ret;
 }
 
-
-
 int employee_setHorasTrabajadas(Employee *this, int horasTrabajadas) {
 
 	int ret = -1;
 
-	if (this != NULL && horasTrabajadas>=0) {
+	if (this != NULL && horasTrabajadas >= 0) {
 
 		this->horasTrabajadas = horasTrabajadas;
+
+		ret = 0;
 
 	}
 
@@ -265,7 +268,7 @@ int employee_setHorasTrabajadasTxt(Employee *this, char *horasTrabajadas) {
 	return ret;
 }
 
-int employee_getHorasTrabajadas(Employee *this, int* horasTrabajadas) {
+int employee_getHorasTrabajadas(Employee *this, int *horasTrabajadas) {
 
 	int ret = -1;
 
@@ -280,12 +283,11 @@ int employee_getHorasTrabajadas(Employee *this, int* horasTrabajadas) {
 	return ret;
 }
 
-
 int employee_setSueldo(Employee *this, int sueldo) {
 
 	int ret = -1;
 
-	if (this != NULL && sueldo>=0) {
+	if (this != NULL && sueldo >= 0) {
 
 		this->sueldo = sueldo;
 		ret = 0;
@@ -332,44 +334,35 @@ int employee_getSueldo(Employee *this, int *sueldo) {
 	return ret;
 }
 
-
-
 int employee_print(Employee *this) {
 
+	int ret = -1;
 
-		int ret = -1;
+	int id;
 
-		int len;
+	char nombre[128];
 
-		int id;
+	int horasTrabajadas;
 
-		char nombre[128];
+	int sueldo;
 
-		int horasTrabajadas;
+	if (this != NULL &&
 
-		int sueldo;
+	employee_getId(this, &id) == 0 &&
 
+	employee_getNombre(this, nombre) == 0 &&
 
-				if (this != NULL &&
+	employee_getHorasTrabajadas(this, &horasTrabajadas) == 0 &&
 
-					employee_getId(this,&id)==0 &&
+	employee_getSueldo(this, &sueldo) == 0)
 
-					employee_getNombre(this,nombre)==0 &&
+	{
 
-					employee_getHorasTrabajadas(this,&horasTrabajadas)==0 &&
+		printf("ID: %d, Nombre: %s,Horas Trabajadas: %d,Sueldo: %d\n", id,
+				nombre, horasTrabajadas, sueldo);
 
-				    employee_getSueldo(this,&sueldo)==0)
+	}
 
-
-				 {
-
-					printf("ID: %d, Nombre: %s,Horas Trabajadas: %d,Sueldo: %d\n",id,nombre,horasTrabajadas,sueldo);
-
-				}
-
-
-
-		return ret;
-
+	return ret;
 
 }
