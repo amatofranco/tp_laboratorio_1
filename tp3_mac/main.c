@@ -25,16 +25,35 @@ int main() {
 
 	int option = 0;
 
-	int flagTxtFile = 0;
+	int flagFile = 0;
+
+	int flagBin = 0;
 
 	do {
 
-		utn_getNumero(&option, "Ingrese opcion", "Opcion Inválida", 1, 10, 2);
+		printf(
+				"/****************************************************/\n "
+						"Menu:\n"
+						"1. Cargar los datos de los empleados desde el archivo data.csv (modo texto).\n"
+						"2. Cargar los datos de los empleados desde el archivo data.csv (modo binario).\n"
+						"3. Alta de empleado\n"
+						"4. Modificar datos de empleado\n"
+						"5. Baja de empleado\n"
+						"6. Listar empleados\n"
+						"7. Ordenar empleados"
+						"8. Guardar los datos de los empleados en el archivo data.csv (modo texto).\n"
+						"9. Guardar los datos de los empleados en el archivo data.csv (modo binario).\n"
+						"10. Salir\n"
+						"/*****************************************************/\n"
+						"");
+
+		utn_getNumero(&option, "Ingrese opcion\n", "Opcion Inválida\n", 1, 10,
+				2);
 
 		switch (option) {
 		case 1:
 
-			if (flagTxtFile == 1) {
+			if (flagFile == 1) {
 
 				printf("El archivo ya se cargó anteriormente\n");
 			}
@@ -43,18 +62,36 @@ int main() {
 
 				printf("Se cargaron %d empleados\n", ll_len(listaEmpleados));
 
-				flagTxtFile = 1;
+				flagFile = 1;
 			}
 
 			break;
 
 		case 2: //si ya se cargo por texto no se puede cargar de archivo y viceversa.
 
+			if (flagFile == 1) {
+				printf("El archivo ya se cargó anteriormente mediante texto\n");
+			}
+
+
+			else if (controller_loadFromBinary("data.bin", listaEmpleados) == 0) {
+
+				printf("Se cargaron %d empleados\n", ll_len(listaEmpleados));
+
+				flagFile = 1;
+			}
+
+			else {
+
+				printf("No se pudo cargar el archivo\n");
+
+			}
+
 			break;
 
 		case 3:
 
-			if (flagTxtFile == 0) {
+			if (flagFile == 0) {
 
 				printf(
 						"Aún no se ha cargado el archivo con la lista de empleados\n");
@@ -70,10 +107,10 @@ int main() {
 
 		case 4:
 
-			if (flagTxtFile == 0) {
+			if (ll_len(listaEmpleados) == 0) {
 
 				printf(
-						"Aún no se ha cargado el archivo con la lista de empleados\n");
+						"No existen empleados cargados para realizar la operación\n");
 
 			}
 
@@ -86,24 +123,77 @@ int main() {
 
 		case 5:
 
-			if (flagTxtFile == 0) {
+			if (ll_len(listaEmpleados) == 0) {
 
-				printf("Aún no se ha cargado el archivo con la lista de empleados\n");
+				printf(
+						"No existen empleados cargados para realizar la operación\n");
 
 			}
 
 			else if (controller_removeEmployee(listaEmpleados) == 0) {
 
-				printf("Operación exitosa");
+				printf("Operación exitosa\n");
 			}
 
 			break;
 
 		case 6:
 
-			if (controller_ListEmployee(listaEmpleados) == 0) {
+			if (ll_len(listaEmpleados) == 0) {
+
+				printf(
+						"No existen empleados cargados para realizar la operación\n");
+
+			}
+
+			else if (controller_ListEmployee(listaEmpleados) == 0) {
 
 				printf("Operación exitosa\n");
+			}
+			break;
+
+		case 7:
+
+			if (ll_len(listaEmpleados) == 0) {
+				printf(
+						"No existen empleados cargados para realizar la operación\n");
+			}
+
+			break;
+
+			if (ll_sort(listaEmpleados, employee_compareBySalary, 1) == 0) {
+				printf("Operación exitosa\n");
+			}
+
+			break;
+
+		case 8:
+
+			if (ll_len(listaEmpleados) == 0) {
+				printf("No existen empleados cargados para realizar la operación\n");
+			}
+
+			else if (controller_saveAsText("data2.csv", listaEmpleados) == 0) {
+
+				printf("Se guardaron %d empleados\n", ll_len(listaEmpleados));
+
+				printf("Operación exitosa");
+			}
+			break;
+
+		case 9:
+
+			if (ll_len(listaEmpleados) == 0) {
+				printf( "No existen empleados cargados para realizar la operación\n");
+			}
+
+			else if (controller_saveAsBinary("data.bin", listaEmpleados) == 0) {
+
+				printf("Se guardaron %d empleados\n", ll_len(listaEmpleados));
+
+				printf("Operación exitosa");
+
+				flagBin= 1;
 			}
 			break;
 

@@ -92,7 +92,7 @@ Employee* employee_newParametrosTxt(char *idStr, char *nombreStr,
 				|| employee_setHorasTrabajadasTxt(this, horasTrabajadasStr)
 						== -1 || employee_setSueldoTxt(this, sueldoStr) == -1) {
 
-			printf("Se borro id %s %s\n", idStr, nombreStr);
+			printf("Se borró id %s %s\n", idStr, nombreStr);
 
 			employee_delete(this);
 
@@ -360,6 +360,48 @@ int employee_print(Employee *this) {
 
 		printf("ID: %d, Nombre: %s,Horas Trabajadas: %d,Sueldo: %d\n", id,
 				nombre, horasTrabajadas, sueldo);
+
+	}
+
+	return ret;
+
+}
+
+int employee_compareBySalary(void *e1, void *e2) {
+
+	int ret = 0;
+
+	/*
+	int sueldo1;
+	int sueldo2;
+	char nombre1[MAX_NOMBRE];
+	char nombre2[MAX_NOMBRE];
+*/
+
+	Employee* pEmployee1;
+	Employee* pEmployee2;
+
+	pEmployee1 = (Employee*) e1;
+	pEmployee2 = (Employee*) e2;
+
+
+	if (pEmployee1 != NULL && pEmployee2 != NULL) {
+
+		printf("hola");
+
+
+			if (pEmployee1->sueldo >  pEmployee2->sueldo) {
+
+				printf("Ok\n");
+
+				ret = 1;
+			}
+
+			else {
+
+				ret = -1;
+			}
+
 
 	}
 
