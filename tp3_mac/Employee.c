@@ -367,44 +367,45 @@ int employee_print(Employee *this) {
 
 }
 
-int employee_compareBySalary(void *e1, void *e2) {
+int employee_compareBySalary(void *elementA, void *elementB) {
 
 	int ret = 0;
+	Employee *employeeA;
+	Employee *employeeB;
+	employeeA = (Employee*) elementA;
+	employeeB = (Employee*) elementB;
 
-	/*
-	int sueldo1;
-	int sueldo2;
-	char nombre1[MAX_NOMBRE];
-	char nombre2[MAX_NOMBRE];
-*/
+	int salaryA;
+	int salaryB;
 
-	Employee* pEmployee1;
-	Employee* pEmployee2;
+	if (employee_getSueldo(employeeA, &salaryA) == 0 && employee_getSueldo(employeeB, &salaryB) == 0) {
 
-	pEmployee1 = (Employee*) e1;
-	pEmployee2 = (Employee*) e2;
+		if (salaryA > salaryB) {
 
+			ret = 1;
 
-	if (pEmployee1 != NULL && pEmployee2 != NULL) {
+		}
 
-		printf("hola");
+		if(salaryA < salaryB){
 
-
-			if (pEmployee1->sueldo >  pEmployee2->sueldo) {
-
-				printf("Ok\n");
-
-				ret = 1;
-			}
-
-			else {
-
-				ret = -1;
-			}
-
+			ret = -1;
+		}
 
 	}
 
 	return ret;
+}
 
+int employee_compareByName(void *elementA, void *elementB) {
+
+	int retorno = 0;
+	Employee *empleadoA;
+	Employee *empleadoB;
+	empleadoA = (Employee*) elementA;
+	empleadoB = (Employee*) elementB;
+
+	if (empleadoA->sueldo < empleadoB->sueldo) {
+		retorno = -1;
+	}
+	return retorno;
 }

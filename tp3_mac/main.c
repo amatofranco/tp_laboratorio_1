@@ -60,7 +60,7 @@ int main() {
 
 			else if (controller_loadFromText("data.csv", listaEmpleados) == 0) {
 
-				printf("Se cargaron %d empleados\n", ll_len(listaEmpleados));
+				printf("Operación exitosa");
 
 				flagFile = 1;
 			}
@@ -70,13 +70,15 @@ int main() {
 		case 2: //si ya se cargo por texto no se puede cargar de archivo y viceversa.
 
 			if (flagFile == 1) {
-				printf("El archivo ya se cargó anteriormente mediante texto\n");
+				printf("El archivo ya se cargó anteriormente\n");
+
+
 			}
 
 
 			else if (controller_loadFromBinary("data.bin", listaEmpleados) == 0) {
 
-				printf("Se cargaron %d empleados\n", ll_len(listaEmpleados));
+				printf("Operación exitosa");
 
 				flagFile = 1;
 			}
@@ -154,19 +156,13 @@ int main() {
 
 		case 7:
 
-			if (ll_len(listaEmpleados) == 0) {
-				printf(
-						"No existen empleados cargados para realizar la operación\n");
-			}
+			if (controller_sortEmployee(listaEmpleados)==0){
 
-			break;
-
-			if (ll_sort(listaEmpleados, employee_compareBySalary, 1) == 0) {
 				printf("Operación exitosa\n");
 			}
 
-			break;
 
+			break;
 		case 8:
 
 			if (ll_len(listaEmpleados) == 0) {
@@ -199,10 +195,9 @@ int main() {
 
 		case 10:
 
-			/*AL SALIR: FREE Y FCLOSE
-			 *
-			 */
+			ll_deleteLinkedList(listaEmpleados);
 
+			printf("Saliendo del programa");
 			break;
 
 		}

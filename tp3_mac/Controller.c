@@ -29,10 +29,14 @@ int controller_loadFromText(char *path, LinkedList *pArrayListEmployee) {
 				ret = 0;
 
 			}
+			fclose(fp);
 
 		}
 
-		fclose(fp);
+		else {
+
+			printf("No pudo abrirse el archivo");
+		}
 
 	}
 
@@ -64,9 +68,15 @@ int controller_loadFromBinary(char *path, LinkedList *pArrayListEmployee) {
 
 			}
 
+			fclose(fp);
+
 		}
 
-		fclose(fp);
+		else {
+
+			printf("No pudo abrirse el archivo\n");
+
+		}
 
 	}
 
@@ -337,35 +347,32 @@ int controller_removeEmployee(LinkedList *pArrayListEmployee) {
 
 					pEmployee = (Employee*) ll_get(pArrayListEmployee, index);
 
+					if (pEmployee != NULL && employee_delete(pEmployee) == 0
+							&& ll_remove(pArrayListEmployee, index) == 0) {
 
-					if (pEmployee!=NULL &&
-						employee_delete(pEmployee)==0 &&
-						ll_remove(pArrayListEmployee, index) == 0) {
+						ret = 0;
+					}
 
+				}
 
-					ret = 0;
+				else {
+
+					printf("Se canceló la operación\n");
+
 				}
 
 			}
 
 			else {
 
-				printf("Se canceló la operación\n");
-
+				printf("No se encontró el ID seleccionado\n");
 			}
 
 		}
 
-		else {
-
-			printf("No se encontró el ID seleccionado\n");
-		}
-
 	}
 
-}
-
-return ret;
+	return ret;
 
 }
 
@@ -378,29 +385,29 @@ return ret;
  */
 int controller_ListEmployee(LinkedList *pArrayListEmployee) {
 
-int ret = -1;
+	int ret = -1;
 
-int len;
+	int len;
 
-Employee *aux;
+	Employee *aux;
 
-if (pArrayListEmployee != NULL) {
+	if (pArrayListEmployee != NULL) {
 
-	len = ll_len(pArrayListEmployee);
+		len = ll_len(pArrayListEmployee);
 
-	for (int i = 0; i < len; i++) {
+		for (int i = 0; i < len; i++) {
 
-		aux = (Employee*) ll_get(pArrayListEmployee, i);
+			aux = (Employee*) ll_get(pArrayListEmployee, i);
 
-		employee_print(aux);
+			employee_print(aux);
+
+		}
+
+		ret = 0;
 
 	}
 
-	ret = 0;
-
-}
-
-return ret;
+	return ret;
 
 }
 
@@ -413,24 +420,46 @@ return ret;
  */
 int controller_sortEmployee(LinkedList *pArrayListEmployee) {
 
-int ret = -1;
+	int ret = -1;
+
+	int option;
+
+	if (pArrayListEmployee != NULL) {
+
+		if (utn_getNumero(&option,
+				"Ingrese el numero para elegir parámetro de ordenamiento: "
+				"\n 1- Ordenar por SUELDO (De menor a mayor)\n 2- ORDENAR por SUELDO (De mayor a menor)\n",
+				"Opción inválida", 1, 2, 2) == 0) {
+
+			switch (option) {
+
+			case 1:
+
+				if (ll_sort(pArrayListEmployee, employee_compareBySalary, 1)==0){
+
+                ret = 0;
 
 
-	if(pArrayListEmployee!=NULL){
+				}
 
-		printf("Hola");
+				break;
 
+			case 2:
 
+				if (ll_sort(pArrayListEmployee, employee_compareBySalary, 0)==0){
 
-	ll_sort(pArrayListEmployee,employee_compareBySalary,1);
+	             ret = 0;
 
+				}
 
-		ret = 0;
+				break;
+
+			}
+		}
+
 	}
 
-
-
-return ret;
+	return ret;
 }
 
 /** \brief Guarda los datos de los empleados en el archivo data.csv (modo texto).
@@ -442,60 +471,56 @@ return ret;
  */
 int controller_saveAsText(char *path, LinkedList *pArrayListEmployee) {
 
+	int ret = -1;
 
-	    int ret = -1;
+	FILE *fp;
+	char nombreAux[MAX_NOMBRE];
+	int horasAux;
+	int sueldoAux;
+	int idAux;
 
-		FILE *fp;
-		char nombreAux[MAX_NOMBRE];
-		int horasAux;
-		int sueldoAux;
-		int idAux;
+	int len;
+	Employee *pEmployee = NULL;
 
-		int len;
-		Employee* pEmployee = NULL;
+	if (path != NULL && pArrayListEmployee != NULL) {
 
+		fp = fopen(path, "w");
 
-		if (path != NULL && pArrayListEmployee != NULL) {
+		if (fp != NULL) {
 
-			fp = fopen(path, "w");
+			len = ll_len(pArrayListEmployee);
 
-			if (fp != NULL) {
+			fprintf(fp, "Id,Nombre,Horas Trabajadas,Sueldo\n");
 
-				len = ll_len(pArrayListEmployee);
+			for (int i = 0; i < len; i++) {
 
+				pEmployee = (Employee*) ll_get(pArrayListEmployee, i);
 
-		        fprintf(fp,"Id,Nombre,Horas Trabajadas,Sueldo\n");
+				if (pEmployee != NULL) {
 
+					if (employee_getNombre(pEmployee, nombreAux) == 0
+							&& employee_getId(pEmployee, &idAux) == 0
+							&& employee_getHorasTrabajadas(pEmployee, &horasAux)
+									== 0
+							&& employee_getSueldo(pEmployee, &sueldoAux) == 0) {
 
-				for (int i = 0; i < len; i++) {
+						fprintf(fp, "%d,%s,%d,%d\n", idAux, nombreAux, horasAux,
+								sueldoAux);
 
-					pEmployee = (Employee*) ll_get(pArrayListEmployee,i);
-
-					if (pEmployee!=NULL){
-
-
-						if (employee_getNombre(pEmployee,nombreAux) == 0
-								&& employee_getId(pEmployee,&idAux)== 0
-								&& employee_getHorasTrabajadas(pEmployee,&horasAux) == 0
-								&& employee_getSueldo(pEmployee,&sueldoAux)==0) {
-
-							fprintf(fp, "%d,%s,%d,%d\n", idAux, nombreAux, horasAux, sueldoAux);
-
-						}
 					}
-
 				}
-
-				ret = 0;
-
-
-				fclose(fp);
 
 			}
 
+			ret = 0;
+
+			fclose(fp);
+
 		}
 
-		return ret;
+	}
+
+	return ret;
 }
 
 /** \brief Guarda los datos de los empleados en el archivo data.csv (modo binario).
@@ -507,13 +532,13 @@ int controller_saveAsText(char *path, LinkedList *pArrayListEmployee) {
  */
 int controller_saveAsBinary(char *path, LinkedList *pArrayListEmployee) {
 
-    int ret = -1;
+	int ret = -1;
 
 	FILE *fp;
 
 	int len;
-	Employee* pEmployee = NULL;
 
+	Employee *pEmployee = NULL;
 
 	if (path != NULL && pArrayListEmployee != NULL) {
 
@@ -523,29 +548,26 @@ int controller_saveAsBinary(char *path, LinkedList *pArrayListEmployee) {
 
 			len = ll_len(pArrayListEmployee);
 
-
 			for (int i = 0; i < len; i++) {
 
-				pEmployee = (Employee*) ll_get(pArrayListEmployee,i);
+				pEmployee = (Employee*) ll_get(pArrayListEmployee, i);
 
-				if (pEmployee!=NULL){
+				if (pEmployee != NULL) {
 
-						fwrite(pEmployee,sizeof(Employee),1,fp);
-					}
+					fwrite(pEmployee, sizeof(Employee), 1, fp);
+
 				}
-
 			}
-
-			ret = 0;
-
 
 			fclose(fp);
 
 		}
 
+		ret = 0;
+
+	}
 
 	return ret;
-
 
 }
 
