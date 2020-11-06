@@ -78,11 +78,6 @@ static int esNombre(char *cadena, int limite);
  */
 static int getNombre(char *pResultado);
 
-static int getAlfanumerica(char *pResultado);
-
-static int esAlfanumerica(char *cadena, int limite);
-
-static int esDni(char *cadena, int limite);
 
 static int myGets(char *cadena, int longitud) {
 

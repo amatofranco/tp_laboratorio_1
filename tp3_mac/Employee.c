@@ -4,10 +4,19 @@
 
 #include "Employee.h"
 
+
 static int isValidNumber(char *string, int length);
 
 static int isValidName(char *string, int length);
 
+
+
+/**
+ * Valida que la cadena recibida sea un número
+ * @param string Cadena a analizar
+ * @param length largo de la cadena
+ * @return 0 Éxito -1 Error
+ */
 static int isValidNumber(char *string, int length) {
 
 	int ret = 1;
@@ -34,6 +43,13 @@ static int isValidNumber(char *string, int length) {
 
 }
 
+
+/**
+ * Valida que la cadena ingresada sea un nombre
+ * @param string Cadena a analizar
+ * @param length Largo de la cadena
+ * @return 0 Éxito -1 Error
+ */
 static int isValidName(char *string, int length) {
 
 	int ret = 1;
@@ -67,6 +83,13 @@ static int isValidName(char *string, int length) {
 
 }
 
+/**
+ * Guarda espacio en memoria correspondiente a un empleado
+ * y lo asigna a un puntero
+ * @return Puntero al empleado
+ */
+
+
 Employee* employee_new(void) {
 
 	Employee *auxP = NULL;
@@ -76,6 +99,17 @@ Employee* employee_new(void) {
 	return auxP;
 
 }
+
+/**
+ *
+ * Escribe los parámetros de un empleado, recibidos por texto
+ * @param idStr Id de empleado
+ * @param nombreStr Nombre de empleado
+ * @param horasTrabajadasStr Horas trabajadas del empleado
+ * @param sueldoStr Sueldo del empleado
+ * @return
+ */
+
 
 Employee* employee_newParametrosTxt(char *idStr, char *nombreStr,
 		char *horasTrabajadasStr, char *sueldoStr) {
@@ -105,6 +139,16 @@ Employee* employee_newParametrosTxt(char *idStr, char *nombreStr,
 	return this;
 }
 
+/**
+ *
+ * Escribe los parámetros de un empleado
+ * @param id Id de empleado
+ * @param nombre Nombre de empleado
+ * @param horasTrabajadas Horas trabajadas del empleado
+ * @param sueldo Sueldo del empleado
+ * @return
+ */
+
 Employee* employee_newParametros(int id, char *nombre, int horasTrabajadas,
 		int sueldo) {
 
@@ -130,6 +174,12 @@ Employee* employee_newParametros(int id, char *nombre, int horasTrabajadas,
 	return this;
 }
 
+/**
+ * Libera el espacio en memoria correspondiente al empleado
+ * @param this Puntero a espacio en memoria a liberar
+ * @return 0 Éxito -1 Error
+ */
+
 int employee_delete(Employee *this) {
 
 	int ret = -1;
@@ -146,6 +196,13 @@ int employee_delete(Employee *this) {
 
 }
 
+/**
+ * Asigna ID a un empleado
+ * @param this Puntero a empleado
+ * @param id Id a asignar
+ * @return 0 Éxito -1 Error
+ */
+
 int employee_setId(Employee *this, int id) {
 
 	int ret = -1;
@@ -161,6 +218,15 @@ int employee_setId(Employee *this, int id) {
 	return ret;
 
 }
+
+
+/**
+ * Asigna ID a un empleado, recibido por texto
+ * @param this Puntero a empleado
+ * @param id Id a asignar
+ * @return 0 Éxito -1 Error
+ */
+
 
 int employee_setIdTxt(Employee *this, char *id) {
 
@@ -182,6 +248,15 @@ int employee_setIdTxt(Employee *this, char *id) {
 
 }
 
+
+/**
+ * Obtiene id de un empleado
+ * @param this Puntero a empleado
+ * @param id Puntero a resultado obtenido
+ * @return 0 Éxito -1 Error
+ */
+
+
 int employee_getId(Employee *this, int *id) {
 
 	int ret = -1;
@@ -196,6 +271,15 @@ int employee_getId(Employee *this, int *id) {
 
 	return ret;
 }
+
+
+/**
+ * Asigna nombre a un empleado
+ * @param this Puntero a empleado
+ * @param id Nombre a asignar
+ * @return 0 Éxito -1 Error
+ */
+
 
 int employee_setNombre(Employee *this, char *nombre) {
 
@@ -216,6 +300,14 @@ int employee_setNombre(Employee *this, char *nombre) {
 	return ret;
 }
 
+/**
+ * Obtiene nombre de un empleado
+ * @param this Puntero a empleado
+ * @param nombre Puntero a resultado obtenido
+ * @return 0 Éxito -1 Error
+ */
+
+
 int employee_getNombre(Employee *this, char *nombre) {
 
 	int ret = -1;
@@ -231,6 +323,15 @@ int employee_getNombre(Employee *this, char *nombre) {
 	return ret;
 }
 
+/**
+ * Asigna horas trabajadas a un empleado
+ * @param this Puntero a empleado
+ * @param horasTrabajadas horas trabajadas a asignar
+ * @return 0 Éxito -1 Error
+ */
+
+
+
 int employee_setHorasTrabajadas(Employee *this, int horasTrabajadas) {
 
 	int ret = -1;
@@ -245,6 +346,17 @@ int employee_setHorasTrabajadas(Employee *this, int horasTrabajadas) {
 
 	return ret;
 }
+
+
+/**
+ * Asigna horas trabajadas a un empleado, recibidas desde texto
+ * @param this Puntero a empleado
+ * @param horasTrabajadas horas trabajadas a asignar
+ * @return 0 Éxito -1 Error
+ */
+
+
+
 
 int employee_setHorasTrabajadasTxt(Employee *this, char *horasTrabajadas) {
 
@@ -268,6 +380,15 @@ int employee_setHorasTrabajadasTxt(Employee *this, char *horasTrabajadas) {
 	return ret;
 }
 
+
+/**
+ * Obtiene horas trabajadas de un empleado
+ * @param this Puntero a empleado
+ * @param horasTrabajadas Puntero a resultado obtenido
+ * @return 0 Éxito -1 Error
+ */
+
+
 int employee_getHorasTrabajadas(Employee *this, int *horasTrabajadas) {
 
 	int ret = -1;
@@ -283,6 +404,15 @@ int employee_getHorasTrabajadas(Employee *this, int *horasTrabajadas) {
 	return ret;
 }
 
+
+/**
+ * Asigna sueldo a un empleado
+ * @param this Puntero a empleado
+ * @param sueldo sueldo a asignar
+ * @return 0 Éxito -1 Error
+ */
+
+
 int employee_setSueldo(Employee *this, int sueldo) {
 
 	int ret = -1;
@@ -296,6 +426,15 @@ int employee_setSueldo(Employee *this, int sueldo) {
 
 	return ret;
 }
+
+/**
+ * Asigna sueldo a un empleado, recibido desde texto
+ * @param this Puntero a empleado
+ * @param sueldo sueldo a asignar
+ * @return 0 Éxito -1 Error
+ */
+
+
 
 int employee_setSueldoTxt(Employee *this, char *sueldo) {
 
@@ -319,6 +458,15 @@ int employee_setSueldoTxt(Employee *this, char *sueldo) {
 	return ret;
 }
 
+
+/**
+ * Obtiene sueldo de un empleado
+ * @param this Puntero a empleado
+ * @param sueldo sueldo a asignar
+ * @return 0 Éxito -1 Error
+ */
+
+
 int employee_getSueldo(Employee *this, int *sueldo) {
 
 	int ret = -1;
@@ -333,6 +481,14 @@ int employee_getSueldo(Employee *this, int *sueldo) {
 
 	return ret;
 }
+
+/**
+ * Imprime datos de un empleado
+ * @param this Puntero a empleado
+ * @return 0 Éxito -1 Error
+ */
+
+
 
 int employee_print(Employee *this) {
 
@@ -366,6 +522,14 @@ int employee_print(Employee *this) {
 	return ret;
 
 }
+
+/**
+ * Compara mayor sueldo entre dos empleados
+ * @param elementA Puntero (void) a castear (EmployeeA)
+ * @param elementB Puntero (void) a castear (EmployeeB)
+ * @return 0 Error 1 Sueldo de Empleado A mayor -1 Sueldo de Empleado B mayor
+ */
+
 
 int employee_compareBySalary(void *elementA, void *elementB) {
 

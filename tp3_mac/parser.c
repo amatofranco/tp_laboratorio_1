@@ -3,12 +3,11 @@
 #include "LinkedList.h"
 #include "Employee.h"
 
-/** \brief Parsea los datos los datos de los empleados desde el archivo data.csv (modo texto).
- *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
- *
+/**
+ * Parsea los datos los datos de los empleados desde el archivo data.csv (modo texto).
+ * @param pFile Directorio del archivo
+ * @param pArrayListEmployee Linkedlist de empleados
+ * @return 0 Éxito -1 Error
  */
 int parser_EmployeeFromText(FILE *pFile, LinkedList *pArrayListEmployee) {
 
@@ -60,12 +59,11 @@ int parser_EmployeeFromText(FILE *pFile, LinkedList *pArrayListEmployee) {
 	return ret;
 }
 
-/** \brief Parsea los datos los datos de los empleados desde el archivo data.csv (modo binario).
- *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
- *
+/**
+ * Parsea los datos los datos de los empleados desde el archivo data.csv (modo binario).
+ * @param pFile Directorio del archivo
+ * @param pArrayListEmployee Linkedlist de empleados
+ * @return 0 Éxito -1 Error
  */
 int parser_EmployeeFromBinary(FILE *pFile, LinkedList *pArrayListEmployee) {
 

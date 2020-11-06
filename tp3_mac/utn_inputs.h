@@ -54,14 +54,4 @@ int utn_getNegativo(int *pResultado, char *mensaje, char *mensajeError,
 int utn_getNombre(char *pResultado, char *mensaje, char *mensajeError,int reintentos);
 
 
-
-int utn_getAlfanumerica(char *pResultado, char *mensaje, char *mensajeError,
-		int reintentos);
-
-int utn_getDni(char *pResultado, char *mensaje, char *mensajeError,int minimo, int maximo,
-		int reintentos);
-
-int utn_getChar(char *pResultado, char *mensaje, char *mensajeError, int minimo,
-		int maximo, int reintentos);
-
 #endif /* UTN_INPUTS_H_ */
