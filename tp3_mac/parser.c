@@ -77,6 +77,8 @@ int parser_EmployeeFromBinary(FILE *pFile, LinkedList *pArrayListEmployee) {
 
 	int cont = 0;
 
+	int read;
+
 	Employee *pEmployee = NULL;
 
 	Employee employeeAux;
@@ -85,21 +87,25 @@ int parser_EmployeeFromBinary(FILE *pFile, LinkedList *pArrayListEmployee) {
 
 		do {
 
-			fread(&employeeAux, sizeof(Employee), 1, pFile);
+			read = fread(&employeeAux, sizeof(Employee), 1, pFile);
 
-			if (employee_getNombre(&employeeAux, nombreAux) == 0
-					&& employee_getId(&employeeAux, &idAux) == 0
-					&& employee_getHorasTrabajadas(&employeeAux, &horasAux) == 0
-					&& employee_getSueldo(&employeeAux, &sueldoAux) == 0) {
+			if (read==1){
 
-				pEmployee = employee_newParametros(idAux, nombreAux, horasAux,
-						sueldoAux);
+				if (employee_getNombre(&employeeAux, nombreAux) == 0
+						&& employee_getId(&employeeAux, &idAux) == 0
+						&& employee_getHorasTrabajadas(&employeeAux, &horasAux)
+								== 0
+						&& employee_getSueldo(&employeeAux, &sueldoAux) == 0) {
 
-				if (pEmployee != NULL) {
+					pEmployee = employee_newParametros(idAux, nombreAux,
+							horasAux, sueldoAux);
 
-					if (ll_add(pArrayListEmployee, pEmployee) == 0) {
+					if (pEmployee != NULL) {
 
-						cont++;
+						if (ll_add(pArrayListEmployee, pEmployee) == 0) {
+
+							cont++;
+						}
 					}
 				}
 			}
@@ -107,6 +113,8 @@ int parser_EmployeeFromBinary(FILE *pFile, LinkedList *pArrayListEmployee) {
 		} while (feof(pFile) == 0);
 
 		if (cont > 0) {
+
+			printf("Se agregaron %d empleados\n", cont);
 
 			ret = 0;
 		}
