@@ -35,7 +35,7 @@ int controller_loadFromText(char *path, LinkedList *pArrayListEmployee) {
 
 		else {
 
-			printf("No pudo abrirse el archivo. \n");
+			printf("No se encuentra el archivo. \n");
 		}
 
 	}

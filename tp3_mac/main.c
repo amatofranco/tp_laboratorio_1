@@ -58,7 +58,7 @@ int main() {
 				printf("El archivo ya se cargó anteriormente\n");
 			}
 
-			else if (controller_loadFromText("data2.csv", listaEmpleados) == 0) {
+			else if (controller_loadFromText("data.csv", listaEmpleados) == 0) {
 
 				printf("Operación exitosa\n");
 
