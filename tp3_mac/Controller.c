@@ -388,15 +388,25 @@ int controller_ListEmployee(LinkedList *pArrayListEmployee) {
 
 		len = ll_len(pArrayListEmployee);
 
-		for (int i = 0; i < len; i++) {
+		if (len > 0) {
 
-			aux = (Employee*) ll_get(pArrayListEmployee, i);
 
-			employee_print(aux);
+			printf("%10s  %20s   %20s  %20s  \n", "ID", "NOMBRE", "HORAS TRABAJADAS", "SUELDO");
+			printf("--------------------------------------------------------------------------------------\n");
+
+
+			for (int i = 0; i < len; i++) {
+
+				aux = (Employee*) ll_get(pArrayListEmployee, i);
+
+				if (aux != NULL) {
+					employee_print(aux);
+				}
+			}
+
+			ret = 0;
 
 		}
-
-		ret = 0;
 
 	}
 
@@ -419,17 +429,18 @@ int controller_sortEmployee(LinkedList *pArrayListEmployee) {
 
 		if (utn_getNumero(&option,
 				"Ingrese el numero para elegir parámetro de ordenamiento: "
-				"\n 1- Ordenar por SUELDO (De menor a mayor)\n 2- ORDENAR por SUELDO (De mayor a menor)\n",
-				"Opción inválida", 1, 2, 2) == 0) {
+						"\n 1- ORDENAR por SUELDO (De menor a mayor)\n 2- ORDENAR por SUELDO (De mayor a menor)\n "
+						"3 - ORDENAR por NOMBRE (ascendente)\n 4 - ORDENAR POR NOMBRE (descendente)",
+				"Opción inválida", 1, 4, 2) == 0) {
 
 			switch (option) {
 
 			case 1:
 
-				if (ll_sort(pArrayListEmployee, employee_compareBySalary, 1)==0){
+				if (ll_sort(pArrayListEmployee, employee_compareBySalary, 1)
+						== 0) {
 
-                ret = 0;
-
+					ret = 0;
 
 				}
 
@@ -437,9 +448,32 @@ int controller_sortEmployee(LinkedList *pArrayListEmployee) {
 
 			case 2:
 
-				if (ll_sort(pArrayListEmployee, employee_compareBySalary, 0)==0){
+				if (ll_sort(pArrayListEmployee, employee_compareBySalary, 0)
+						== 0) {
 
-	             ret = 0;
+					ret = 0;
+
+				}
+
+				break;
+
+			case 3:
+
+				if (ll_sort(pArrayListEmployee, employee_compareByName, 1)
+						== 0) {
+
+					ret = 0;
+
+				}
+
+				break;
+
+			case 4:
+
+				if (ll_sort(pArrayListEmployee, employee_compareByName, 0)
+						== 0) {
+
+					ret = 0;
 
 				}
 

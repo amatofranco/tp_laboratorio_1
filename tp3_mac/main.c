@@ -99,8 +99,7 @@ int main() {
 
 			if (flagFile == 0) {
 
-				printf(
-						"Aún no se ha cargado el archivo con la lista de empleados\n");
+				printf("Aún no se ha cargado el archivo con la lista de empleados\n");
 
 			}
 
@@ -131,8 +130,7 @@ int main() {
 
 			if (ll_len(listaEmpleados) == 0) {
 
-				printf(
-						"No existen empleados cargados para realizar la operación\n");
+				printf("No existen empleados cargados para realizar la operación\n");
 
 			}
 
@@ -147,8 +145,7 @@ int main() {
 
 			if (ll_len(listaEmpleados) == 0) {
 
-				printf(
-						"No existen empleados cargados para realizar la operación\n");
+				printf("No existen empleados cargados para realizar la operación\n");
 
 			}
 
@@ -206,6 +203,8 @@ int main() {
 		case 10:
 
 			ll_deleteLinkedList(listaEmpleados);
+
+			free(listaEmpleados);
 
 			printf("Saliendo del programa\n");
 			break;

@@ -514,7 +514,7 @@ int employee_print(Employee *this) {
 
 	{
 
-		printf("ID: %d, Nombre: %s,Horas Trabajadas: %d,Sueldo: %d\n", id,
+		printf("%10d | %20s  | %20d | %20d |\n", id,
 				nombre, horasTrabajadas, sueldo);
 
 	}
@@ -562,14 +562,27 @@ int employee_compareBySalary(void *elementA, void *elementB) {
 
 int employee_compareByName(void *elementA, void *elementB) {
 
-	int retorno = 0;
+	int ret = 0;
 	Employee *empleadoA;
 	Employee *empleadoB;
 	empleadoA = (Employee*) elementA;
 	empleadoB = (Employee*) elementB;
 
-	if (empleadoA->sueldo < empleadoB->sueldo) {
-		retorno = -1;
+	char nombreA[MAX_NOMBRE];
+	char nombreB [MAX_NOMBRE];
+
+	if (employee_getNombre(empleadoA,nombreA)==0 && employee_getNombre(empleadoB,nombreB)==0){
+
+		if (strncmp(nombreA,nombreB,MAX_NOMBRE)>0){
+
+			ret = 1;
+		}
+
+		if (strncmp(nombreA,nombreB,MAX_NOMBRE)<0){
+
+			ret = -1;
+		}
+
 	}
-	return retorno;
+	return ret;
 }

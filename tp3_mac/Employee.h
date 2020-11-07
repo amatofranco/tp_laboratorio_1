@@ -37,6 +37,7 @@ int employee_getSueldo(Employee* this,int* sueldo);
 int employee_print(Employee *this);
 
 int employee_compareBySalary(void *elementA, void *elementB);
+int employee_compareByName(void *elementA, void *elementB);
 
 
 
