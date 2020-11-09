@@ -20,6 +20,9 @@
  10. Salir
  *****************************************************/
 
+
+
+
 int main() {
 	LinkedList *listaEmpleados = ll_newLinkedList();
 
@@ -108,20 +111,28 @@ int main() {
 				printf("Operación exitosa\n");
 			}
 
+			else {
+					printf("Se produjo un error. Se redigirá al menú.\n");
+
+			}
+
 			break;
 
 		case 4:
 
 			if (ll_len(listaEmpleados) == 0) {
 
-				printf(
-						"No existen empleados cargados para realizar la operación\n");
+				printf("No existen empleados cargados para realizar la operación\n");
 
 			}
 
 			else if (controller_editEmployee(listaEmpleados) == 0) {
 
 				printf("Operación exitosa \n");
+			}
+
+			else {
+				printf("Se produjo un error. Se redigirá al menú.\n");
 			}
 
 			break;
@@ -139,6 +150,12 @@ int main() {
 				printf("Operación exitosa\n");
 			}
 
+			else {
+
+					printf("Se produjo un error. Se redigirá al menú.\n");
+
+			}
+
 			break;
 
 		case 6:
@@ -152,6 +169,12 @@ int main() {
 			else if (controller_ListEmployee(listaEmpleados) == 0) {
 
 				printf("Operación exitosa\n");
+			}
+
+			else {
+
+			printf("Se produjo un error. Se redigirá al menú.\n");
+
 			}
 			break;
 
@@ -168,6 +191,12 @@ int main() {
 				printf("Operación exitosa\n");
 			}
 
+			else {
+
+				printf("Se produjo un error. Se redigirá al menú.\n");
+
+			}
+
 			break;
 		case 8:
 
@@ -180,6 +209,12 @@ int main() {
 				printf("Se guardaron %d empleados\n", ll_len(listaEmpleados));
 
 				printf("Operación exitosa");
+			}
+
+			else {
+
+				  printf("Se produjo un error. Se redigirá al menú.\n");
+
 			}
 			break;
 
@@ -197,6 +232,12 @@ int main() {
 				printf("Operación exitosa\n");
 
 				flagBin = 1;
+			}
+
+			else {
+
+				printf("Se produjo un error. Se redigirá al menú.\n");
+
 			}
 			break;
 

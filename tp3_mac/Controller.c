@@ -4,6 +4,7 @@
 #include "Employee.h"
 #include "parser.h"
 #include "utn_inputs.h"
+#include "Controller.h"
 
 /** \brief Carga los datos de los empleados desde el archivo data.csv (modo texto).
  *
@@ -136,6 +137,9 @@ int controller_addEmployee(LinkedList *pArrayListEmployee) {
 
 				printf("Se agregó:\n");
 
+				printf("%10s  %20s   %20s  %20s  \n", "ID", "NOMBRE", "HORAS TRABAJADAS", "SUELDO");
+				printf("--------------------------------------------------------------------------------------\n");
+
 				employee_print(pEmployee);
 
 				ret = 0;
@@ -171,6 +175,8 @@ int controller_editEmployee(LinkedList *pArrayListEmployee) {
 
 	int option;
 
+	controller_ListEmployee(pArrayListEmployee);
+
 	if (utn_getNumero(&idSearch,
 			"Ingrese el Número de ID del Empleado a modificar\n",
 			"Ingreso inválido\n", 0, MAX_ID, 2) == 0)
@@ -187,6 +193,9 @@ int controller_editEmployee(LinkedList *pArrayListEmployee) {
 					&& idAux == idSearch) {
 
 				printf("Se encontró:\n");
+
+				printf("%10s  %20s   %20s  %20s  \n", "ID", "NOMBRE", "HORAS TRABAJADAS", "SUELDO");
+				printf("--------------------------------------------------------------------------------------\n");
 
 				employee_print(pEmployee);
 				flagId = 1;
@@ -216,6 +225,9 @@ int controller_editEmployee(LinkedList *pArrayListEmployee) {
 
 								printf("Se modificó:\n");
 
+								printf("%10s  %20s   %20s  %20s  \n", "ID", "NOMBRE", "HORAS TRABAJADAS", "SUELDO");
+								printf("--------------------------------------------------------------------------------------\n");
+
 								employee_print(pEmployee);
 
 								printf("Operación Exitosa\n");
@@ -237,6 +249,9 @@ int controller_editEmployee(LinkedList *pArrayListEmployee) {
 
 								printf("Se modificó:\n");
 
+								printf("%10s  %20s   %20s  %20s  \n", "ID", "NOMBRE", "HORAS TRABAJADAS", "SUELDO");
+								printf("--------------------------------------------------------------------------------------\n");
+
 								employee_print(pEmployee);
 
 								printf("Operación Exitosa\n");
@@ -248,12 +263,15 @@ int controller_editEmployee(LinkedList *pArrayListEmployee) {
 
 					case 3:
 
-						if (utn_getNumero(&sueldoAux, "Ingrese nuevo SUELDO n",
+						if (utn_getNumero(&sueldoAux, "Ingrese nuevo SUELDO \n",
 								"Ingreso inválido\n", 0, MAX_SUELDO, 2) == 0) {
 
 							if (employee_setSueldo(pEmployee, sueldoAux) == 0) {
 
 								printf("Se modificó:\n");
+
+								printf("%10s  %20s   %20s  %20s  \n", "ID", "NOMBRE", "HORAS TRABAJADAS", "SUELDO");
+								printf("--------------------------------------------------------------------------------------\n");
 
 								employee_print(pEmployee);
 
@@ -309,6 +327,8 @@ int controller_removeEmployee(LinkedList *pArrayListEmployee) {
 
 	if (pArrayListEmployee != NULL) {
 
+		controller_ListEmployee(pArrayListEmployee);
+
 		if (utn_getNumero(&idSearch,
 				"Ingrese el Número de ID del Empleado a ELIMINAR\n",
 				"Ingreso inválido\n", 0, MAX_ID, 2) == 0) {
@@ -325,6 +345,9 @@ int controller_removeEmployee(LinkedList *pArrayListEmployee) {
 					index = i;
 
 					printf("Se encontró:\n");
+
+					printf("%10s  %20s   %20s  %20s  \n", "ID", "NOMBRE", "HORAS TRABAJADAS", "SUELDO");
+					printf("--------------------------------------------------------------------------------------\n");
 
 					employee_print(pEmployee);
 					flagId = 1;
