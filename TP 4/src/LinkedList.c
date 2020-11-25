@@ -596,7 +596,13 @@ int ll_sort(LinkedList *this, int (*pFunc)(void*, void*), int order) {
 	return returnAux;
 
 }
-
+/**
+ * Toma los elementos de la lista, los pasa por una funcion
+ * recibida por parametro y los incorpora modificados
+ * @param this Puntero a la lista
+ * @param pFunc Funcion a utilizar
+ * @return Puntero a la Lista
+ */
 LinkedList* ll_map(LinkedList *this, void (*pFunc)(void *Element)) {
 
 	void *pElement;
@@ -620,9 +626,9 @@ LinkedList* ll_map(LinkedList *this, void (*pFunc)(void *Element)) {
 
 /**
  * Filtra los elementos de una lista
- * @param this Lista a filtrar
+ * @param this Puntero a la Lista a filtrar
  * @param pFunc Funcion con la condicion para filtrar (Devuelve 1 Si el elemento CUMPLE la condicion y 0 si NO CUMPLE)
- * @return Lista filtrada en base a funcion
+ * @return Puntero a la nueva Lista filtrada
  */
 LinkedList* ll_filter(LinkedList *this, int (*pFunc)(void *pElement)) {
 
@@ -656,14 +662,4 @@ LinkedList* ll_filter(LinkedList *this, int (*pFunc)(void *pElement)) {
 
 }
 
-/* Ejemplo de funcion para usar en map
- *
- void calcularPrecioFinal(Producto* p){
 
- if(p!=NULL){
-
- p.setPrecioFinal = p.GetPrecioUnitario * p.GetCantidad;
-
- }
- }
- */
